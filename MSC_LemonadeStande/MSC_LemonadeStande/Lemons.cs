@@ -10,7 +10,7 @@ namespace MSC_LemonadeStande
     {
         public Lemons()
         {
-            SetPrice(2.20);
+            SetPrice(2.25);
             SetDaysRemaining(14);
         }
 

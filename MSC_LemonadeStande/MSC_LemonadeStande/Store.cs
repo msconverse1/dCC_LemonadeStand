@@ -10,7 +10,6 @@ namespace MSC_LemonadeStande
     {
         int numCupsToMake;
         List<Cups> prepedCups;
-        Weather Weather;
         int currentDay;
 
         public List<Cups> GetCup()
@@ -28,7 +27,8 @@ namespace MSC_LemonadeStande
             {
 
                 Console.WriteLine("Cup:" + i + $"\nContains Ice:{ item.Ice }"+
-                                           $" Sugar: {item.Sugar}"+ $" Lemons: {item.Lemons} "
+                                           $" Sugar: {item.Sugar}"+ $" Lemons: {item.Lemons} " + 
+                                           $" Price: {item.GetPrice()}"
                                            );
                 i++;
             }
@@ -37,21 +37,21 @@ namespace MSC_LemonadeStande
         public  void CreateSetNumCups(Inventory inventory,Weather weather,int day)
         {
             SetCup(new List<Cups>());
-            Weather = weather;
             currentDay = day;
             Console.WriteLine("How Many Cups would you like to make");
             int.TryParse(Console.ReadLine(), out int numCups);
             while(numCupsToMake < numCups)
             {
                 Console.Clear();
-                ShowCurrentWeather();
+                ShowCurrentWeather(weather);
                 prepedCups.Add(new Cups());
                 prepedCups[numCupsToMake].CreateCup(AskForIce(inventory), AskForSugar(inventory), AskForLemons(inventory), IsFull());
+               
                 numCupsToMake++;
                 Console.Clear();
-                ShowCurrentWeather();
+                ShowCurrentWeather(weather);
             }
-            
+            SetPriceOfEachCup(inventory, weather.WeatherForTheWeek[currentDay].changePrice);
         }
         public int AskForSugar(Inventory inventory)
         {
@@ -110,11 +110,11 @@ namespace MSC_LemonadeStande
         {
             return false;
         }
-        void ShowCurrentWeather()
+        void ShowCurrentWeather(Weather weather)
         {
             Console.Clear();
-            Console.WriteLine("Current Weather: " + Weather.WeatherForTheWeek[currentDay].forecast);
-            Console.WriteLine("Current Tempature: " + Weather.WeatherForTheWeek[currentDay].temperature);
+            Console.WriteLine("Current Weather: " + weather.WeatherForTheWeek[currentDay].forecast);
+            Console.WriteLine("Current Tempature: " + weather.WeatherForTheWeek[currentDay].temperature);
         }
         public void Profits(Inventory inventory)
         {
@@ -123,10 +123,23 @@ namespace MSC_LemonadeStande
         }
         void CurrentSupplies(Inventory inventory)
         {
-
             Console.WriteLine("Started the day with supplies: Ice:" + inventory.ice 
                                       +"Sugar:"+inventory.sugar + "Lemons:"+inventory.lemons 
                                       );
+        }
+        void SetPriceOfEachCup(Inventory inventory,double factor)
+        {
+            foreach (var item in prepedCups)
+            {
+                //sugar is 1.5, ice .75 , lemons 2.25 1cup cost 4.5 to make
+
+                item.SetPrice(( ((inventory.Sugar.GetPrice() * item.Sugar)
+                                 + (inventory.Lemons.GetPrice() * item.Lemons)
+                                 + (inventory.Ice.GetPrice() * item.Ice))* factor
+                                  ));
+                
+
+            }
         }
     }
 }

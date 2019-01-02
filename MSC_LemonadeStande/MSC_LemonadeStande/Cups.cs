@@ -10,13 +10,23 @@ namespace MSC_LemonadeStande
     {
        int ice;
        int sugar;
-        private int lemons;
-       
+       private int lemons;
+        double price;
         bool isFull;
 
         public int Ice { get => ice; set => ice = value; }
         public int Sugar { get => sugar; set => sugar = value; }
         public int Lemons { get => lemons; set => lemons = value; }
+
+        public double GetPrice()
+        {
+            return price;
+        }
+
+        public void SetPrice(double value)
+        {
+           price = value;
+        }
 
         public void CreateCup(int cubes,int spoon,int slices,bool status)
         {

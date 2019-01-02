@@ -11,7 +11,7 @@ namespace MSC_LemonadeStande
         string dayName;
        public string forecast;
        public double temperature;
-        double changePrice;
+       public double changePrice;
         private readonly double sunnyFactor = 1.5;
         private readonly double rainFactor = .5;
         public string GetForecast()
@@ -83,13 +83,13 @@ namespace MSC_LemonadeStande
             switch (forecast)
             {
                 case "Clear":
-                    changePrice = sunnyFactor * temperature;
+                    changePrice = sunnyFactor;
                     break;
                 case "Cloudy":
-                    changePrice = temperature;
+                    changePrice = 1;
                     break;
                 case "Rain":
-                    changePrice = rainFactor * temperature;
+                    changePrice = rainFactor;
                     break;
                 default:
                     break;

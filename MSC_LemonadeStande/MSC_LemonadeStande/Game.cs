@@ -11,6 +11,7 @@ namespace MSC_LemonadeStande
         Weather newCal;
         Store store;
         Inventory currentItems;
+        Player player;
         int currentDay;
         public void StartGame()
         {
@@ -55,7 +56,11 @@ namespace MSC_LemonadeStande
         }
         void CreateCustomers()
         {
-            Player player = new Player();    
+            player = new Player();    
+        }
+        void CustomerInteraction()
+        {
+            Customer customer = new Customer(player,store);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace MSC_LemonadeStande
 {
     class Player
     {
-        double WillingToPay;
-        double cashOnHand;
-        int Thirst;
+       public double WillingToPay;
+       public double cashOnHand;
+       public int Thirst;
         bool wantSugar;
         public bool GetWantSugar()
         {

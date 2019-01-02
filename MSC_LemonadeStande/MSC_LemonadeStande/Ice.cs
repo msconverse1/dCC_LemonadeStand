@@ -10,7 +10,7 @@ namespace MSC_LemonadeStande
     {
         public Ice()
         {
-            SetPrice(1.25);
+            SetPrice(0.75);
             SetDaysRemaining(3);
             
         }

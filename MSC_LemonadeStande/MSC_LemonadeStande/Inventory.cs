@@ -12,9 +12,9 @@ namespace MSC_LemonadeStande
         public int sugar;
         public int lemons;
         public int cups;
-        readonly Ice Ice;
-        readonly Sugar Sugar;
-        readonly Lemons Lemons;
+        public Ice Ice;
+        public Sugar Sugar;
+        public Lemons Lemons;
        public double startingMoney;
         public double RemainingMoney;
         public Inventory()
