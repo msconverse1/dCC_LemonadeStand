@@ -12,7 +12,7 @@ namespace MSC_LemonadeStande
         {
             SetPrice(1.25);
             SetDaysRemaining(3);
+            
         }
-
     }
 }

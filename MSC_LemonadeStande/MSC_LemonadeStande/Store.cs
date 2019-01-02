@@ -8,10 +8,6 @@ namespace MSC_LemonadeStande
 {
     class Store
     {
-        string currentForecast;
-        double currentTempature;
-        double startingMoney;
-        int currentday;
         int numCupsToMake;
         List<Cups> prepedCups;
         public List<Cups> GetCup()
@@ -22,37 +18,68 @@ namespace MSC_LemonadeStande
         {
             prepedCups = value;
         }
-      public  void CreateSetNumCups(int cupsToMake)
+      public  void CreateSetNumCups(Inventory inventory)
         {
             SetCup(new List<Cups>());
-            while(numCupsToMake < cupsToMake)
+            Console.WriteLine("How Many Cups would you like to make");
+            int.TryParse(Console.ReadLine(), out int numCups);
+            while(numCupsToMake < numCups)
             {
                 prepedCups.Add(new Cups());
-                prepedCups[numCupsToMake].CreateCup(AskForIce(), AskForSugar(), AskForLemons(), IsFull());
+                prepedCups[numCupsToMake].CreateCup(AskForIce(inventory), AskForSugar(inventory), AskForLemons(inventory), IsFull());
                 Console.WriteLine(prepedCups[numCupsToMake]);
                 numCupsToMake++;
             }
-
         }
-        public int AskForSugar()
+        public int AskForSugar(Inventory inventory)
         {
             Console.WriteLine("How many spoons of sugar would you like to add?");
+            Console.WriteLine("Amount on hand: " + inventory.sugar);
             int.TryParse(Console.ReadLine(), out int spoons);
-            return spoons;
+            if (spoons> inventory.sugar)
+            {
+              spoons =  AskForSugar(inventory);
+                return spoons;
+            }
+            else
+            {
+                inventory.sugar -= spoons;
+                return spoons;
+            }
+
         }
-        public int AskForIce()
+        public int AskForIce(Inventory inventory)
         {
             Console.WriteLine("How many Cubes of ice would you like to add?");
+            Console.WriteLine("Amount on hand: " + inventory.ice);
             int.TryParse(Console.ReadLine(), out int cubes);
-            return cubes;
+            if (cubes > inventory.ice)
+            {
+               cubes = AskForIce(inventory);
+                return cubes;
+            }
+            else
+            {
+                inventory.ice -= cubes;
+                return cubes;
+            }
         }
-        public int AskForLemons()
+        public int AskForLemons(Inventory inventory)
         {
             Console.WriteLine("How many Slices of lemons would you like to add?");
+            Console.WriteLine("Amount on hand: " + inventory.lemons);
             int.TryParse(Console.ReadLine(), out int lemons);
-            return lemons;
+            if (lemons > inventory.lemons)
+            {
+                lemons = AskForLemons(inventory);
+                return lemons;
+            }
+            else
+            {
+                inventory.lemons -= lemons;
+                return lemons;
+            }
         }
-
         bool IsFull()
         {
             return true;
