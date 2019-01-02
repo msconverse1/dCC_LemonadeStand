@@ -14,7 +14,7 @@ namespace MSC_LemonadeStande
         private readonly double sunnyFactor = 1.5;
         private readonly double rainFactor = .5;
 
-        void CurrentWeather()
+      public  void CurrentWeather()
         {
             Random Temp = new Random();
             temperature = Temp.Next(70, 120);
@@ -37,7 +37,7 @@ namespace MSC_LemonadeStande
                     break;
             }
         }
-        void SetInflation()
+       public void SetInflation()
         {
             switch (forecast)
             {

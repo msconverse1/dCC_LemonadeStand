@@ -10,6 +10,9 @@ namespace MSC_LemonadeStande
     {
         static void Main(string[] args)
         {
+            Weather newday = new Weather();
+            newday.CreateWeather(7);
+            Console.ReadKey();
         }
     }
 }
