@@ -25,15 +25,18 @@ namespace MSC_LemonadeStande
             while (currentDay<=numDays)
             {
                 WeatherForTheWeek.Add(new Day());
+               
                 WeatherForTheWeek[currentDay].CurrentWeather();
                 WeatherForTheWeek[currentDay].SetInflation();
-                Console.WriteLine(currentDay);
-                Console.WriteLine(WeatherForTheWeek[currentDay].GetForecast());
-                Console.WriteLine(WeatherForTheWeek[currentDay].GetTemperature());
                     currentDay++;
             }
-
-            
         }
+        public void GetADaysWeather(int dayUserWants)
+        {
+            Console.WriteLine(dayUserWants);
+            Console.WriteLine(WeatherForTheWeek[dayUserWants].GetForecast());
+            Console.WriteLine(WeatherForTheWeek[dayUserWants].GetTemperature());
+        }
+        
     }
 }

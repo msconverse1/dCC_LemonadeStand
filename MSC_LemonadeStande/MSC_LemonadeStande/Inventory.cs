@@ -8,5 +8,25 @@ namespace MSC_LemonadeStande
 {
     class Inventory
     {
+        public int ice;
+        public int sugar;
+        public int lemons;
+        public int sizeOfCupOz;
+        void BuyIce()
+        {
+
+        }
+        void BuySugar()
+        {
+
+        }
+        void Buylemons()
+        {
+
+        }
+        void BuyCupsBySize()
+        {
+
+        }
     }
 }

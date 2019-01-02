@@ -8,6 +8,7 @@ namespace MSC_LemonadeStande
 {
     class Day
     {
+        string dayName;
        public string forecast;
        public double temperature;
         double changePrice;
@@ -21,6 +22,39 @@ namespace MSC_LemonadeStande
         {
             return temperature;
         }
+        //public void SetDayName(int passedday)
+        //{
+        //    if (passedday % 7 == 0)
+        //    {
+        //        passedday = 0;
+        //    }
+        //    switch (passedday)
+        //    {
+        //        case 0:
+        //            dayName= "Sunday";
+        //            break;
+        //        case 1:
+        //            dayName="Monday";
+        //            break;
+        //        case 2:
+        //            dayName = "Tuesday";
+        //            break;
+        //        case 3:
+        //            dayName = "Wednesday";
+        //            break;
+        //        case 4:
+        //            dayName = "Thursday";
+        //            break;
+        //        case 5:
+        //            dayName = "Friday";
+        //            break;
+        //        case 6:
+        //            dayName = "Saturday";
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
         public  void CurrentWeather()
         {
             Random Temp = new Random();
