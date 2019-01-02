@@ -12,7 +12,7 @@ namespace MSC_LemonadeStande
         List<Cups> prepedCups;
         Weather Weather;
         int currentDay;
-        
+
         public List<Cups> GetCup()
         {
             return prepedCups;
@@ -120,6 +120,13 @@ namespace MSC_LemonadeStande
         {
             Console.WriteLine("Started the day with:"+ inventory.startingMoney);
             Console.WriteLine("Remaining after Supplier Bought: " + inventory.RemainingMoney);
+        }
+        void CurrentSupplies(Inventory inventory)
+        {
+
+            Console.WriteLine("Started the day with supplies: Ice:" + inventory.ice 
+                                      +"Sugar:"+inventory.sugar + "Lemons:"+inventory.lemons 
+                                      );
         }
     }
 }

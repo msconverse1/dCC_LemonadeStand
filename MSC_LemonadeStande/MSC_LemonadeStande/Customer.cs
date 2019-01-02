@@ -9,10 +9,10 @@ namespace MSC_LemonadeStande
     
     class Customer
     {
-        double WillingToPay;
-        double cashOnHand;
-        int Thirst;
-        bool wantSugar;
+
+
+        
+
     }
 
 }

@@ -9,6 +9,8 @@ namespace MSC_LemonadeStande
     class Game
     {
         Weather newCal;
+        Store store;
+        Inventory currentItems;
         int currentDay;
         public void StartGame()
         {
@@ -18,9 +20,9 @@ namespace MSC_LemonadeStande
             while (currentDay < daysTPlay)
             {
                 CreateStore();
+                CreateCustomers();
                 currentDay++;
             }
-  
         }
         void SetUpWeather(int daysToPlay)
         {
@@ -29,16 +31,11 @@ namespace MSC_LemonadeStande
         }
         void CreateStore()
         {
-            Store store = new Store();
-            Inventory currentItems = new Inventory();
-            ShowCurrentWeather();
-            currentItems.BuyIce();
-            currentItems.Buylemons();
-            currentItems.BuySugar();
+            store = new Store();
+            CreateInventory();
             ShowCurrentWeather();
             store.CreateSetNumCups(currentItems,newCal, currentDay);
             store.CupContains();
-
             store.Profits(currentItems);
             Console.ReadLine();
         }
@@ -48,6 +45,17 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[currentDay].forecast);
             Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[currentDay].temperature);
         }
-
+        void CreateInventory()
+        {
+            currentItems = new Inventory();
+            ShowCurrentWeather();
+            currentItems.BuyIce();
+            currentItems.Buylemons();
+            currentItems.BuySugar();
+        }
+        void CreateCustomers()
+        {
+            Player player = new Player();    
+        }
     }
 }
