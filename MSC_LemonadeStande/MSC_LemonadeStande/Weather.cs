@@ -22,16 +22,17 @@ namespace MSC_LemonadeStande
        public void CreateWeather(int numDays)
         {
             SetDay(new List<Day>());
-            do
-            {         
+            while (currentDay<=numDays)
+            {
                 WeatherForTheWeek.Add(new Day());
                 WeatherForTheWeek[currentDay].CurrentWeather();
                 WeatherForTheWeek[currentDay].SetInflation();
-                if (currentDay <=numDays)
-                {
+                Console.WriteLine(currentDay);
+                Console.WriteLine(WeatherForTheWeek[currentDay].GetForecast());
+                Console.WriteLine(WeatherForTheWeek[currentDay].GetTemperature());
                     currentDay++;
-                }
-            } while (currentDay <= 7);
+            }
+
             
         }
     }

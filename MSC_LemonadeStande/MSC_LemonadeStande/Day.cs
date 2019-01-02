@@ -8,17 +8,24 @@ namespace MSC_LemonadeStande
 {
     class Day
     {
-        string forecast;
-        double temperature;
+       public string forecast;
+       public double temperature;
         double changePrice;
         private readonly double sunnyFactor = 1.5;
         private readonly double rainFactor = .5;
-
-      public  void CurrentWeather()
+        public string GetForecast()
+        {
+            return forecast;
+        }
+        public double GetTemperature()
+        {
+            return temperature;
+        }
+        public  void CurrentWeather()
         {
             Random Temp = new Random();
             temperature = Temp.Next(70, 120);
-
+            System.Threading.Thread.Sleep(500);
             Random int_forecast = new Random();
          
             switch (int_forecast.Next(1, 3))
