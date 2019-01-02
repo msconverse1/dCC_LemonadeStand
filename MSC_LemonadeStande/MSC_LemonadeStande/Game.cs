@@ -36,9 +36,10 @@ namespace MSC_LemonadeStande
             currentItems.Buylemons();
             currentItems.BuySugar();
             ShowCurrentWeather();
-           
-            store.CreateSetNumCups(currentItems);
-            Console.WriteLine("ice total: " + currentItems.ice);
+            store.CreateSetNumCups(currentItems,newCal, currentDay);
+            store.CupContains();
+
+            store.Profits(currentItems);
             Console.ReadLine();
         }
         void ShowCurrentWeather()

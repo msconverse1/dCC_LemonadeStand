@@ -10,6 +10,9 @@ namespace MSC_LemonadeStande
     {
         int numCupsToMake;
         List<Cups> prepedCups;
+        Weather Weather;
+        int currentDay;
+        
         public List<Cups> GetCup()
         {
             return prepedCups;
@@ -18,18 +21,37 @@ namespace MSC_LemonadeStande
         {
             prepedCups = value;
         }
-      public  void CreateSetNumCups(Inventory inventory)
+        public void CupContains()
+        {
+            int i = 1;
+            foreach (var item in prepedCups)
+            {
+
+                Console.WriteLine("Cup:" + i + $"\nContains Ice:{ item.Ice }"+
+                                           $" Sugar: {item.Sugar}"+ $" Lemons: {item.Lemons} "
+                                           );
+                i++;
+            }
+
+        }
+        public  void CreateSetNumCups(Inventory inventory,Weather weather,int day)
         {
             SetCup(new List<Cups>());
+            Weather = weather;
+            currentDay = day;
             Console.WriteLine("How Many Cups would you like to make");
             int.TryParse(Console.ReadLine(), out int numCups);
             while(numCupsToMake < numCups)
             {
+                Console.Clear();
+                ShowCurrentWeather();
                 prepedCups.Add(new Cups());
                 prepedCups[numCupsToMake].CreateCup(AskForIce(inventory), AskForSugar(inventory), AskForLemons(inventory), IsFull());
-                Console.WriteLine(prepedCups[numCupsToMake]);
                 numCupsToMake++;
+                Console.Clear();
+                ShowCurrentWeather();
             }
+            
         }
         public int AskForSugar(Inventory inventory)
         {
@@ -87,6 +109,17 @@ namespace MSC_LemonadeStande
         bool IsEmpty()
         {
             return false;
+        }
+        void ShowCurrentWeather()
+        {
+            Console.Clear();
+            Console.WriteLine("Current Weather: " + Weather.WeatherForTheWeek[currentDay].forecast);
+            Console.WriteLine("Current Tempature: " + Weather.WeatherForTheWeek[currentDay].temperature);
+        }
+        public void Profits(Inventory inventory)
+        {
+            Console.WriteLine("Started the day with:"+ inventory.startingMoney);
+            Console.WriteLine("Remaining after Supplier Bought: " + inventory.RemainingMoney);
         }
     }
 }
