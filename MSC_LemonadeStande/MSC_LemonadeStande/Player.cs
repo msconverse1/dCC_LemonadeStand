@@ -24,8 +24,8 @@ namespace MSC_LemonadeStande
         {
             Random cash = new Random();
             cashOnHand = cash.Next(10, 42);
-            System.Threading.Thread.Sleep(500);
-            WillingToPay = cash.Next(10, 42);
+            System.Threading.Thread.Sleep(75);
+            WillingToPay = cash.Next(5, 15);
             System.Threading.Thread.Sleep(50);
             Random water = new Random();
             Thirst = water.Next(0, 20);

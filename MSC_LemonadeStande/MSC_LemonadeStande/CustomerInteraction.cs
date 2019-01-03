@@ -49,7 +49,6 @@ namespace MSC_LemonadeStande
                     }
                 }
             }
-
         }
         void PlayerBuysCup(Cups item)
         {

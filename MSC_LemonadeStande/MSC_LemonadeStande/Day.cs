@@ -66,7 +66,7 @@ namespace MSC_LemonadeStande
         {
             Random Temp = new Random();
             temperature = Temp.Next(70, 120);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(50);
             Random int_forecast = new Random();
          
             switch (int_forecast.Next(1, 3))
@@ -87,19 +87,23 @@ namespace MSC_LemonadeStande
         }
        public void SetInflation()
         {
+            Random chanceToVisit = new Random();
+            changePeople = chanceToVisit.Next(10, 30);
+            System.Threading.Thread.Sleep(15);
             switch (forecast)
             {
                 case "Clear":
                     changePrice = sunnyFactor;
-                    changePeople = 2;
+                    changePeople *= 2;
+                    
                     break;
                 case "Cloudy":
                     changePrice = 1;
-                    changePeople = 1;
+                    changePeople *= 1;
                     break;
                 case "Rain":
                     changePrice = rainFactor;
-                    changePeople = 0.5;
+                    changePeople *= 0.5;
                     break;
                 default:
                     break;

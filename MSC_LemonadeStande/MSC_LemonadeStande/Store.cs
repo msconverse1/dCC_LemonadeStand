@@ -43,12 +43,15 @@ namespace MSC_LemonadeStande
             numCupsToMake = 0;
             currentDay = day;
             Console.WriteLine("How Many Cups would you like to make");
+            Console.WriteLine("Currently have Ice:" + inventory.Ice1 + "Currently have Sugar: " + inventory.Sugar1 +
+                                       "Currently have Lemons: " + inventory.Lemons1);
             int.TryParse(Console.ReadLine(), out int numCups);
             while(numCupsToMake < numCups)
             {
                 Console.Clear();
                 ShowCurrentWeather(weather);
                 prepedCups.Add(new Cups());
+                Console.WriteLine("Cup: " + numCupsToMake);
                 prepedCups[numCupsToMake].CreateCup(AskForIce(inventory), AskForSugar(inventory), AskForLemons(inventory), IsFull());
                
                 numCupsToMake++;
@@ -145,9 +148,11 @@ namespace MSC_LemonadeStande
         }
        public void CalculateDaysPay(Inventory inventory)
         {
-            Console.WriteLine("Is total Cash in Store" +( inventory.CollectedMoney + inventory.RemainingMoney));
-            Console.WriteLine("Is current profits based off Started with after Supplies where bought" +(inventory.CollectedMoney- inventory.StartingMoney));
+            Console.WriteLine("End of the Day Report!");
+            Console.WriteLine("Is total Cash in Store: $" +( inventory.CollectedMoney + inventory.RemainingMoney));
+            Console.WriteLine("Is current profits based off Started with after Supplies where bought: $" +(inventory.CollectedMoney- inventory.StartingMoney));
             inventory.RemainingMoney += inventory.CollectedMoney;
+            inventory.StartingMoney = inventory.RemainingMoney;
         }
     }
 }

@@ -10,27 +10,44 @@ namespace MSC_LemonadeStande
     {
         Weather newCal;
         Store store;
-        Inventory currentItems;
+        readonly Inventory currentItems;
         readonly Player player;
         CustomerInteraction customer;
         int currentDay;
+        List<Player> PotinalCustomers;
         public Game()
         {
             newCal = new Weather();
             store = new Store();
             currentItems = new Inventory();
             player = new Player();
-            customer = new CustomerInteraction(player, store, currentItems);
+            
         }
         public void StartGame()
         {
             Console.WriteLine("How Many Days would you like to play");
            int.TryParse( Console.ReadLine(),out int daysTPlay);
             SetUpWeather(daysTPlay);
+            Console.WriteLine("Do you wish to see the Weeks Weather?");
+           
+            if (Console.ReadLine().ToLower()=="yes")
+            {
+                ShowWeeksWeather();
+                Console.WriteLine("Press ant Key to cotinue..");
+                Console.ReadKey();
+            }
+         
             while (currentDay < daysTPlay)
             {
                 CreateStore();
-                customer.IsPlayerThirsty();
+                CreateCustomers(currentDay);
+                foreach (var item in PotinalCustomers)
+                {
+                    customer = new CustomerInteraction(item, store, currentItems);
+                    ShowCurrentWeather();
+                    customer.IsPlayerThirsty();
+                }
+                ShowCurrentWeather();
                 store.CalculateDaysPay(currentItems);
                 Console.ReadLine();
                 currentDay++;
@@ -52,8 +69,20 @@ namespace MSC_LemonadeStande
         void ShowCurrentWeather()
         {
             Console.Clear();
+            Console.WriteLine("Current Day: " + currentDay);
             Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[currentDay].Forecast);
             Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[currentDay].Temperature);
+        }
+        void ShowWeeksWeather()
+        {
+            Console.Clear();
+            for (int i = 0; i < newCal.WeatherForTheWeek.Count(); i++)
+            {
+                Console.WriteLine("Day:" + i);
+                Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[i].Forecast);
+                Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[i].Temperature+"\n");
+            }
+            
         }
         void CreateInventory()
         {
@@ -62,6 +91,17 @@ namespace MSC_LemonadeStande
             store.buySupplies.BuyIce(currentItems);
             store.buySupplies.Buylemons(currentItems);
             store.buySupplies.BuySugar(currentItems);
+        }
+
+        void CreateCustomers(int day)
+        {
+
+                PotinalCustomers = new List<Player>();
+                for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
+                {
+                    PotinalCustomers.Add(new Player());
+                }
+            
         }
     }
 }

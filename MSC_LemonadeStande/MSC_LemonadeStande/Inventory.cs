@@ -41,5 +41,6 @@ namespace MSC_LemonadeStande
         {
             RemainingMoney -= spent;
         }
+        
     }
 }

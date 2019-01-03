@@ -15,6 +15,7 @@ namespace MSC_LemonadeStande
             prevIce = inventory.Ice1;
             Console.WriteLine("How much Ice would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
+            Console.WriteLine("Current on Hand: " + prevIce);
             Console.WriteLine("Costs: " + "$" + inventory.Ice.GetPrice());
             int.TryParse(Console.ReadLine(), out  int ice);
             inventory.Ice1 = ice;
@@ -29,6 +30,7 @@ namespace MSC_LemonadeStande
             prevSugar = inventory.Sugar1;
             Console.WriteLine("How much Sugar would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
+            Console.WriteLine("Current on Hand: " + prevSugar);
             Console.WriteLine("Costs: " + "$" + inventory.Sugar.GetPrice());
             int.TryParse(Console.ReadLine(), out int sugar);
             inventory.Sugar1 = sugar;
@@ -42,6 +44,7 @@ namespace MSC_LemonadeStande
             prevlemons = inventory.Lemons1;
             Console.WriteLine("How many Lemons would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
+            Console.WriteLine("Current on Hand: " + prevlemons);
             Console.WriteLine("Costs: " + "$" + inventory.Lemons.GetPrice());
             int.TryParse(Console.ReadLine(), out int lemons);
             inventory.Lemons1 = lemons;

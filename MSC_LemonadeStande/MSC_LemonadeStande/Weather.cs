@@ -22,7 +22,7 @@ namespace MSC_LemonadeStande
        public void CreateWeather(int numDays)
         {
             SetDay(new List<Day>());
-            while (currentDay<=numDays)
+            while (currentDay<numDays)
             {
                 WeatherForTheWeek.Add(new Day());
                
