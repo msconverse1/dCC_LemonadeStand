@@ -12,9 +12,13 @@ namespace MSC_LemonadeStande
        public List<Cups> prepedCups;
         public BuySupplies buySupplies;
         int currentDay;
+
+        internal Inventory CurrentItems { get; set; }
+
         public Store()
         {
             buySupplies = new BuySupplies();
+            CurrentItems = new Inventory();
         }
         public List<Cups> GetCup()
         {
@@ -37,14 +41,14 @@ namespace MSC_LemonadeStande
             }
 
         }
-        public  void CreateSetNumCups(Inventory inventory,Weather weather,int day)
+        public  void CreateSetNumCups(Weather weather,int day)
         {
             SetCup(new List<Cups>());
             numCupsToMake = 0;
             currentDay = day;
-            Console.WriteLine("How Many Cups would you like to make");
-            Console.WriteLine("Currently have Ice:" + inventory.Ice1 + "Currently have Sugar: " + inventory.Sugar1 +
-                                       "Currently have Lemons: " + inventory.Lemons1);
+            Console.WriteLine("How Many Cups would you like to make?");
+            Console.WriteLine("Currently have Ice:" + CurrentItems.Ice1 + "Currently have Sugar: " + CurrentItems.Sugar1 +
+                                       "Currently have Lemons: " + CurrentItems.Lemons1);
             int.TryParse(Console.ReadLine(), out int numCups);
             while(numCupsToMake < numCups)
             {
@@ -52,13 +56,12 @@ namespace MSC_LemonadeStande
                 ShowCurrentWeather(weather);
                 prepedCups.Add(new Cups());
                 Console.WriteLine("Cup: " + numCupsToMake);
-                prepedCups[numCupsToMake].CreateCup(AskForIce(inventory), AskForSugar(inventory), AskForLemons(inventory), IsFull());
-               
+                prepedCups[numCupsToMake].CreateCup(AskForIce(CurrentItems), AskForSugar(CurrentItems), AskForLemons(CurrentItems), IsFull());
                 numCupsToMake++;
                 Console.Clear();
                 ShowCurrentWeather(weather);
             }
-            SetPriceOfEachCup(inventory, weather.WeatherForTheWeek[currentDay].ChangePrice);
+            SetPriceOfEachCup( weather.WeatherForTheWeek[currentDay].ChangePrice);
         }
         public int AskForSugar(Inventory inventory)
         {
@@ -123,36 +126,43 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Current Weather: " + weather.WeatherForTheWeek[currentDay].Forecast);
             Console.WriteLine("Current Tempature: " + weather.WeatherForTheWeek[currentDay].Temperature);
         }
-        public void Profits(Inventory inventory)
+        public void Profits()
         {
-            Console.WriteLine("Started the day with:"+ inventory.StartingMoney);
-            Console.WriteLine("Remaining after Supplier Bought: " + inventory.RemainingMoney);
+            Console.WriteLine("Started the day with:"+ CurrentItems.StartingMoney);
+            Console.WriteLine("Remaining after Supplier Bought: " + CurrentItems.RemainingMoney);
         }
-        void CurrentSupplies(Inventory inventory)
+        void CurrentSupplies()
         {
-            Console.WriteLine("Started the day with supplies: Ice:" + inventory.Ice1 
-                                      +"Sugar:"+inventory.Sugar1 + "Lemons:"+inventory.Lemons1 
+            Console.WriteLine("Started the day with supplies: Ice:" + CurrentItems.Ice1 
+                                      +"Sugar:"+ CurrentItems.Sugar1 + "Lemons:"+ CurrentItems.Lemons1 
                                       );
         }
-        void SetPriceOfEachCup(Inventory inventory,double factor)
+        void SetPriceOfEachCup(double factor)
         {
             foreach (var item in prepedCups)
             {
                 //sugar is 1.5, ice .75 , lemons 2.25 1cup cost 4.5 to make
                 //16,32,4
-                item.SetPrice(( ((inventory.Sugar.GetPrice()/4 * item.Sugar)
-                                 + (inventory.Lemons.GetPrice()/2 * item.Lemons)
-                                 + (inventory.Ice.GetPrice()/3 * item.Ice))* factor
+                item.SetPrice(( ((CurrentItems.Sugar.GetPrice()/4 * item.Sugar)
+                                 + (CurrentItems.Lemons.GetPrice()/2 * item.Lemons)
+                                 + (CurrentItems.Ice.GetPrice()/3 * item.Ice))* factor
                                   ));
             }
         }
-       public void CalculateDaysPay(Inventory inventory)
+       public void CalculateDaysPay()
         {
             Console.WriteLine("End of the Day Report!");
-            Console.WriteLine("Is total Cash in Store: $" +( inventory.CollectedMoney + inventory.RemainingMoney));
-            Console.WriteLine("Is current profits based off Started with after Supplies where bought: $" +(inventory.CollectedMoney- inventory.StartingMoney));
-            inventory.RemainingMoney += inventory.CollectedMoney;
-            inventory.StartingMoney = inventory.RemainingMoney;
+            Console.WriteLine("Is total Cash in Store: $" +(CurrentItems.CollectedMoney + CurrentItems.RemainingMoney));
+            Console.WriteLine("Is current profits based off Started with after Supplies where bought: $" +(CurrentItems.CollectedMoney- CurrentItems.StartingMoney));
+            CurrentItems.RemainingMoney += CurrentItems.CollectedMoney;
+            CurrentItems.StartingMoney = CurrentItems.RemainingMoney;
+        }
+
+        public void CreateInventory()
+        {
+            buySupplies.BuyIce(CurrentItems);
+            buySupplies.Buylemons(CurrentItems);
+            buySupplies.BuySugar(CurrentItems);
         }
     }
 }

@@ -13,11 +13,11 @@ namespace MSC_LemonadeStande
         Player Player;
         Inventory Inventory;
 
-        public CustomerInteraction(Player player, Store store, Inventory inventory)
+        public CustomerInteraction(Player player, Store store)
         {
             Store = store;
             Player = player;
-            Inventory = inventory;
+            Inventory = Store.CurrentItems;
         }
        public void IsPlayerThirsty()
         {

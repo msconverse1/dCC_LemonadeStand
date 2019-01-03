@@ -10,7 +10,7 @@ namespace MSC_LemonadeStande
     {
         Weather newCal;
         Store store;
-        readonly Inventory currentItems;
+       
         readonly Player player;
         CustomerInteraction customer;
         int currentDay;
@@ -19,7 +19,7 @@ namespace MSC_LemonadeStande
         {
             newCal = new Weather();
             store = new Store();
-            currentItems = new Inventory();
+           
             player = new Player();
             
         }
@@ -43,12 +43,12 @@ namespace MSC_LemonadeStande
                 CreateCustomers(currentDay);
                 foreach (var item in PotinalCustomers)
                 {
-                    customer = new CustomerInteraction(item, store, currentItems);
+                    customer = new CustomerInteraction(item, store);
                     ShowCurrentWeather();
                     customer.IsPlayerThirsty();
                 }
                 ShowCurrentWeather();
-                store.CalculateDaysPay(currentItems);
+                store.CalculateDaysPay();
                 Console.ReadLine();
                 currentDay++;
             }
@@ -58,12 +58,12 @@ namespace MSC_LemonadeStande
             newCal.CreateWeather(daysToPlay);
         }
         void CreateStore()
-        {  
-            CreateInventory();
+        {
+            store.CreateInventory();
             ShowCurrentWeather();
-            store.CreateSetNumCups(currentItems,newCal, currentDay);
+            store.CreateSetNumCups(newCal, currentDay);
             store.CupContains();
-            store.Profits(currentItems);
+            store.Profits();
             Console.ReadLine();
         }
         void ShowCurrentWeather()
@@ -84,15 +84,6 @@ namespace MSC_LemonadeStande
             }
             
         }
-        void CreateInventory()
-        {
-            ShowCurrentWeather();
-
-            store.buySupplies.BuyIce(currentItems);
-            store.buySupplies.Buylemons(currentItems);
-            store.buySupplies.BuySugar(currentItems);
-        }
-
         void CreateCustomers(int day)
         {
 
