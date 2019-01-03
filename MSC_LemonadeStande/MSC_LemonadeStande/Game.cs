@@ -10,7 +10,6 @@ namespace MSC_LemonadeStande
     {
         Weather newCal;
         Store store;
-       
         readonly Player player;
         CustomerInteraction customer;
         int currentDay;
@@ -19,24 +18,20 @@ namespace MSC_LemonadeStande
         {
             newCal = new Weather();
             store = new Store();
-           
-            player = new Player();
-            
+            player = new Player();      
         }
         public void StartGame()
         {
             Console.WriteLine("How Many Days would you like to play");
-           int.TryParse( Console.ReadLine(),out int daysTPlay);
+            int.TryParse( Console.ReadLine(),out int daysTPlay);
             SetUpWeather(daysTPlay);
             Console.WriteLine("Do you wish to see the Weeks Weather?");
-           
             if (Console.ReadLine().ToLower()=="yes")
             {
                 ShowWeeksWeather();
                 Console.WriteLine("Press ant Key to cotinue..");
                 Console.ReadKey();
             }
-         
             while (currentDay < daysTPlay)
             {
                 CreateStore();
@@ -44,11 +39,12 @@ namespace MSC_LemonadeStande
                 foreach (var item in PotinalCustomers)
                 {
                     customer = new CustomerInteraction(item, store);
-                    ShowCurrentWeather();
+                    newCal.GetADaysWeather(currentDay);
                     customer.IsPlayerThirsty();
                 }
-                ShowCurrentWeather();
+                newCal.GetADaysWeather(currentDay);
                 store.CalculateDaysPay();
+                Console.WriteLine("Press Any Key to Start the next day..");
                 Console.ReadLine();
                 currentDay++;
             }
@@ -60,39 +56,34 @@ namespace MSC_LemonadeStande
         void CreateStore()
         {
             store.CreateInventory();
-            ShowCurrentWeather();
+            newCal.GetADaysWeather(currentDay);
             store.CreateSetNumCups(newCal, currentDay);
             store.CupContains();
             store.Profits();
             Console.ReadLine();
         }
-        void ShowCurrentWeather()
+        void ShowCurrentWeather(int day)
         {
-            Console.Clear();
+            
             Console.WriteLine("Current Day: " + currentDay);
-            Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[currentDay].Forecast);
-            Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[currentDay].Temperature);
+            Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[day].Forecast);
+            Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[day].Temperature);
         }
         void ShowWeeksWeather()
         {
             Console.Clear();
             for (int i = 0; i < newCal.WeatherForTheWeek.Count(); i++)
             {
-                Console.WriteLine("Day:" + i);
-                Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[i].Forecast);
-                Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[i].Temperature+"\n");
+                ShowCurrentWeather(i);
             }
-            
         }
         void CreateCustomers(int day)
         {
-
-                PotinalCustomers = new List<Player>();
-                for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
-                {
-                    PotinalCustomers.Add(new Player());
-                }
-            
+            PotinalCustomers = new List<Player>();
+            for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
+            {
+                PotinalCustomers.Add(new Player());
+            }
         }
     }
 }
