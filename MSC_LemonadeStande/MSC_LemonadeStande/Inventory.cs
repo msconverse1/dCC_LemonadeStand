@@ -8,55 +8,36 @@ namespace MSC_LemonadeStande
 {
     class Inventory
     {
-        public int ice;
-        public int sugar;
-        public int lemons;
-        public int cups;
+         int ice1;
+         int sugar1;
+         int lemons1;
+         int cups;
         public Ice Ice;
         public Sugar Sugar;
         public Lemons Lemons;
-       public double startingMoney;
-        public double RemainingMoney;
+        private double startingMoney;
+        private double remainingMoney;
+        private double collectedMoney;
+
+        public double CollectedMoney { get => collectedMoney; set => collectedMoney = value; }
+        public double RemainingMoney { get => remainingMoney; set => remainingMoney = value; }
+        public double StartingMoney { get => startingMoney; set => startingMoney = value; }
+        public int Ice1 { get => ice1; set => ice1 = value; }
+        public int Sugar1 { get => sugar1; set => sugar1 = value; }
+        public int Lemons1 { get => lemons1; set => lemons1 = value; }
+        public int Cups { get => cups; set => cups = value; }
+
         public Inventory()
         {
-            startingMoney = 20.00;
-            RemainingMoney = startingMoney;
+            StartingMoney = 20.00;
+            RemainingMoney = StartingMoney;
             Ice = new Ice();
             Sugar = new Sugar();
             Lemons = new Lemons();
 
         }
-       public  void BuyIce()
-        {
-            Console.WriteLine("How much Ice would you like to buy?");
-            Console.WriteLine("Remaining Balnace: $"+ RemainingMoney);
-            Console.WriteLine("Costs: " + "$"+Ice.GetPrice());
-            int.TryParse(Console.ReadLine(), out ice);
-            CalculateSpentMoney(Ice.GetPrice()* ice);
-        }
-        public void BuySugar()
-        {
-            Console.WriteLine("How much Sugar would you like to buy?");
-            Console.WriteLine("Remaining Balnace: $" + RemainingMoney);
-            Console.WriteLine("Costs: " + "$" + Sugar.GetPrice());
-            int.TryParse(Console.ReadLine(), out sugar);
-            CalculateSpentMoney(Sugar.GetPrice() * sugar);
-        }
-        public void Buylemons()
-        {
-            Console.WriteLine("How many Lemons would you like to buy?");
-            Console.WriteLine("Remaining Balnace: $" + RemainingMoney);
-            Console.WriteLine("Costs: " + "$" + Lemons.GetPrice());
-            int.TryParse(Console.ReadLine(), out lemons);
-            CalculateSpentMoney(Lemons.GetPrice() * lemons);
-        }
-        void BuyCups()
-        {
-            Console.WriteLine("How many Cups would you like to buy?");
-            Console.WriteLine("Remaining Balnace: $" + RemainingMoney);
-            int.TryParse(Console.ReadLine(), out cups);
-        }
-        void CalculateSpentMoney(double spent)
+
+        public void CalculateSpentMoney(double spent)
         {
             RemainingMoney -= spent;
         }

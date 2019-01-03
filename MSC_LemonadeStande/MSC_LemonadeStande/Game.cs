@@ -11,8 +11,17 @@ namespace MSC_LemonadeStande
         Weather newCal;
         Store store;
         Inventory currentItems;
-        Player player;
+        readonly Player player;
+        CustomerInteraction customer;
         int currentDay;
+        public Game()
+        {
+            newCal = new Weather();
+            store = new Store();
+            currentItems = new Inventory();
+            player = new Player();
+            customer = new CustomerInteraction(player, store, currentItems);
+        }
         public void StartGame()
         {
             Console.WriteLine("How Many Days would you like to play");
@@ -21,18 +30,18 @@ namespace MSC_LemonadeStande
             while (currentDay < daysTPlay)
             {
                 CreateStore();
-                CreateCustomers();
+                customer.IsPlayerThirsty();
+                store.CalculateDaysPay(currentItems);
+                Console.ReadLine();
                 currentDay++;
             }
         }
         void SetUpWeather(int daysToPlay)
         {
-            newCal = new Weather();
             newCal.CreateWeather(daysToPlay);
         }
         void CreateStore()
-        {
-            store = new Store();
+        {  
             CreateInventory();
             ShowCurrentWeather();
             store.CreateSetNumCups(currentItems,newCal, currentDay);
@@ -43,24 +52,16 @@ namespace MSC_LemonadeStande
         void ShowCurrentWeather()
         {
             Console.Clear();
-            Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[currentDay].forecast);
-            Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[currentDay].temperature);
+            Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[currentDay].Forecast);
+            Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[currentDay].Temperature);
         }
         void CreateInventory()
         {
-            currentItems = new Inventory();
             ShowCurrentWeather();
-            currentItems.BuyIce();
-            currentItems.Buylemons();
-            currentItems.BuySugar();
-        }
-        void CreateCustomers()
-        {
-            player = new Player();    
-        }
-        void CustomerInteraction()
-        {
-            Customer customer = new Customer(player,store);
+
+            store.buySupplies.BuyIce(currentItems);
+            store.buySupplies.Buylemons(currentItems);
+            store.buySupplies.BuySugar(currentItems);
         }
     }
 }

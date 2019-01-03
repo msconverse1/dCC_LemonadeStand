@@ -9,9 +9,13 @@ namespace MSC_LemonadeStande
     class Store
     {
         int numCupsToMake;
-        List<Cups> prepedCups;
+       public List<Cups> prepedCups;
+        public BuySupplies buySupplies;
         int currentDay;
-
+        public Store()
+        {
+            buySupplies = new BuySupplies();
+        }
         public List<Cups> GetCup()
         {
             return prepedCups;
@@ -25,7 +29,6 @@ namespace MSC_LemonadeStande
             int i = 1;
             foreach (var item in prepedCups)
             {
-
                 Console.WriteLine("Cup:" + i + $"\nContains Ice:{ item.Ice }"+
                                            $" Sugar: {item.Sugar}"+ $" Lemons: {item.Lemons} " + 
                                            $" Price: {item.GetPrice()}"
@@ -37,6 +40,7 @@ namespace MSC_LemonadeStande
         public  void CreateSetNumCups(Inventory inventory,Weather weather,int day)
         {
             SetCup(new List<Cups>());
+            numCupsToMake = 0;
             currentDay = day;
             Console.WriteLine("How Many Cups would you like to make");
             int.TryParse(Console.ReadLine(), out int numCups);
@@ -51,21 +55,21 @@ namespace MSC_LemonadeStande
                 Console.Clear();
                 ShowCurrentWeather(weather);
             }
-            SetPriceOfEachCup(inventory, weather.WeatherForTheWeek[currentDay].changePrice);
+            SetPriceOfEachCup(inventory, weather.WeatherForTheWeek[currentDay].ChangePrice);
         }
         public int AskForSugar(Inventory inventory)
         {
             Console.WriteLine("How many spoons of sugar would you like to add?");
-            Console.WriteLine("Amount on hand: " + inventory.sugar);
+            Console.WriteLine("Amount on hand: " + inventory.Sugar1);
             int.TryParse(Console.ReadLine(), out int spoons);
-            if (spoons> inventory.sugar)
+            if (spoons> inventory.Sugar1)
             {
               spoons =  AskForSugar(inventory);
                 return spoons;
             }
             else
             {
-                inventory.sugar -= spoons;
+                inventory.Sugar1 -= spoons;
                 return spoons;
             }
 
@@ -73,32 +77,32 @@ namespace MSC_LemonadeStande
         public int AskForIce(Inventory inventory)
         {
             Console.WriteLine("How many Cubes of ice would you like to add?");
-            Console.WriteLine("Amount on hand: " + inventory.ice);
+            Console.WriteLine("Amount on hand: " + inventory.Ice1);
             int.TryParse(Console.ReadLine(), out int cubes);
-            if (cubes > inventory.ice)
+            if (cubes > inventory.Ice1)
             {
                cubes = AskForIce(inventory);
                 return cubes;
             }
             else
             {
-                inventory.ice -= cubes;
+                inventory.Ice1 -= cubes;
                 return cubes;
             }
         }
         public int AskForLemons(Inventory inventory)
         {
             Console.WriteLine("How many Slices of lemons would you like to add?");
-            Console.WriteLine("Amount on hand: " + inventory.lemons);
+            Console.WriteLine("Amount on hand: " + inventory.Lemons1);
             int.TryParse(Console.ReadLine(), out int lemons);
-            if (lemons > inventory.lemons)
+            if (lemons > inventory.Lemons1)
             {
                 lemons = AskForLemons(inventory);
                 return lemons;
             }
             else
             {
-                inventory.lemons -= lemons;
+                inventory.Lemons1 -= lemons;
                 return lemons;
             }
         }
@@ -113,18 +117,18 @@ namespace MSC_LemonadeStande
         void ShowCurrentWeather(Weather weather)
         {
             Console.Clear();
-            Console.WriteLine("Current Weather: " + weather.WeatherForTheWeek[currentDay].forecast);
-            Console.WriteLine("Current Tempature: " + weather.WeatherForTheWeek[currentDay].temperature);
+            Console.WriteLine("Current Weather: " + weather.WeatherForTheWeek[currentDay].Forecast);
+            Console.WriteLine("Current Tempature: " + weather.WeatherForTheWeek[currentDay].Temperature);
         }
         public void Profits(Inventory inventory)
         {
-            Console.WriteLine("Started the day with:"+ inventory.startingMoney);
+            Console.WriteLine("Started the day with:"+ inventory.StartingMoney);
             Console.WriteLine("Remaining after Supplier Bought: " + inventory.RemainingMoney);
         }
         void CurrentSupplies(Inventory inventory)
         {
-            Console.WriteLine("Started the day with supplies: Ice:" + inventory.ice 
-                                      +"Sugar:"+inventory.sugar + "Lemons:"+inventory.lemons 
+            Console.WriteLine("Started the day with supplies: Ice:" + inventory.Ice1 
+                                      +"Sugar:"+inventory.Sugar1 + "Lemons:"+inventory.Lemons1 
                                       );
         }
         void SetPriceOfEachCup(Inventory inventory,double factor)
@@ -132,14 +136,18 @@ namespace MSC_LemonadeStande
             foreach (var item in prepedCups)
             {
                 //sugar is 1.5, ice .75 , lemons 2.25 1cup cost 4.5 to make
-
-                item.SetPrice(( ((inventory.Sugar.GetPrice() * item.Sugar)
-                                 + (inventory.Lemons.GetPrice() * item.Lemons)
-                                 + (inventory.Ice.GetPrice() * item.Ice))* factor
+                //16,32,4
+                item.SetPrice(( ((inventory.Sugar.GetPrice()/4 * item.Sugar)
+                                 + (inventory.Lemons.GetPrice()/2 * item.Lemons)
+                                 + (inventory.Ice.GetPrice()/3 * item.Ice))* factor
                                   ));
-                
-
             }
+        }
+       public void CalculateDaysPay(Inventory inventory)
+        {
+            Console.WriteLine("Is total Cash in Store" +( inventory.CollectedMoney + inventory.RemainingMoney));
+            Console.WriteLine("Is current profits based off Started with after Supplies where bought" +(inventory.CollectedMoney- inventory.StartingMoney));
+            inventory.RemainingMoney += inventory.CollectedMoney;
         }
     }
 }
