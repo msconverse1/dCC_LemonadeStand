@@ -40,7 +40,10 @@ namespace MSC_LemonadeStande
                 {
                     customer = new CustomerInteraction(item, store);
                     newCal.GetADaysWeather(currentDay);
+                    
                     customer.IsPlayerThirsty();
+                    Console.WriteLine("Press ant Key to cotinue..");
+                    Console.ReadLine();
                 }
                 newCal.GetADaysWeather(currentDay);
                 store.CalculateDaysPay();
@@ -55,16 +58,16 @@ namespace MSC_LemonadeStande
         }
         void CreateStore()
         {
-            store.CreateInventory();
             newCal.GetADaysWeather(currentDay);
+            store.CreateInventory();
+            
             store.CreateSetNumCups(newCal, currentDay);
             store.CupContains();
             store.Profits();
             Console.ReadLine();
         }
         void ShowCurrentWeather(int day)
-        {
-            
+        {     
             Console.WriteLine("Current Day: " + currentDay);
             Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[day].Forecast);
             Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[day].Temperature);

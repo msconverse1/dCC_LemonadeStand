@@ -49,6 +49,15 @@ namespace MSC_LemonadeStande
                     }
                 }
             }
+            for (int i = 0; i < Store.prepedCups.Count(); i++)
+            {
+                if (Store.prepedCups[i].IsFull == false)
+                {
+                    Store.prepedCups.Remove(Store.prepedCups[i]);
+                    i--;
+                }
+            }
+            
         }
         void PlayerBuysCup(Cups item)
         {
@@ -60,8 +69,8 @@ namespace MSC_LemonadeStande
                    Player.Thirst += 2;
                    Player.cashOnHand -= item.GetPrice();
                    Inventory.CollectedMoney += item.GetPrice();
-                   item.IsFull = false;
-                   break;
+                    item.IsFull = false;
+                    break;
                 }
                 else
                 {

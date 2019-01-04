@@ -34,9 +34,9 @@ namespace MSC_LemonadeStande
         public void GetADaysWeather(int dayUserWants)
         {
             Console.Clear();
-            Console.WriteLine(dayUserWants);
-            Console.WriteLine(WeatherForTheWeek[dayUserWants].GetForecast());
-            Console.WriteLine(WeatherForTheWeek[dayUserWants].GetTemperature());
+            Console.WriteLine("Current Day: "+dayUserWants);
+            Console.WriteLine("Current Weather: " + WeatherForTheWeek[dayUserWants].GetForecast());
+            Console.WriteLine("Current Tempature: " + WeatherForTheWeek[dayUserWants].GetTemperature());
         }
         
     }

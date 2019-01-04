@@ -26,9 +26,18 @@ namespace MSC_LemonadeStande
             cashOnHand = cash.Next(10, 42);
             System.Threading.Thread.Sleep(75);
             WillingToPay = cash.Next(5, 15);
-            System.Threading.Thread.Sleep(50);
+            //System.Threading.Thread.Sleep(50);
             Random water = new Random();
             Thirst = water.Next(0, 20);
+            Random sugar = new Random();
+            if (sugar.Next(0, 1)==0)
+            {
+                wantSugar = false;
+            }
+            else
+            {
+                wantSugar = true;
+            }
         }
 
     }

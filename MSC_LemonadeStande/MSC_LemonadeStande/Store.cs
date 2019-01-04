@@ -133,8 +133,8 @@ namespace MSC_LemonadeStande
         }
         void CurrentSupplies()
         {
-            Console.WriteLine("Started the day with supplies: Ice:" + CurrentItems.Ice1 
-                                      +"Sugar:"+ CurrentItems.Sugar1 + "Lemons:"+ CurrentItems.Lemons1 
+            Console.WriteLine("Started the day with supplies: Ice: " + CurrentItems.Ice1 
+                                      +"\nSugar: "+ CurrentItems.Sugar1 + "\nLemons: "+ CurrentItems.Lemons1 
                                       );
         }
         void SetPriceOfEachCup(double factor)
