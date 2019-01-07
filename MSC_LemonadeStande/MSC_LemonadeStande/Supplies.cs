@@ -18,10 +18,7 @@ namespace MSC_LemonadeStande
         {
              experationTime = value;
         }
-        public void DaysLeft()
-        {
-            experationTime--;
-        }
+
         public void SetPrice(double value)
         {
             price = value;

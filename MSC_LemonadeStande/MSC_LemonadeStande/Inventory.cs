@@ -8,10 +8,10 @@ namespace MSC_LemonadeStande
 {
     class Inventory
     {
-         int ice1;
-         int sugar1;
-         int lemons1;
-         int cups;
+        int ice1;
+        int sugar1;
+        int lemons1;
+        int cups;
         public List<Ice> Ice;
         public List<Sugar> Sugar;
         public List<Lemons> Lemons;
@@ -36,11 +36,9 @@ namespace MSC_LemonadeStande
             Lemons = new List<Lemons>();
 
         }
-
         public void CalculateSpentMoney(double spent)
         {
             RemainingMoney -= spent;
-        }
-        
+        }  
     }
 }

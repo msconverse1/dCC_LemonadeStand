@@ -14,7 +14,7 @@ namespace MSC_LemonadeStande
         int currentDay;
         List<Player> PotinalCustomers;
         List<Store> TotalStores;
-        Random random;
+        readonly Random random;
         public Game()
         {
             newCal = new Weather();
@@ -91,18 +91,15 @@ namespace MSC_LemonadeStande
                 PotinalCustomers.Add(new Player(random));
             }
         }
-        string CreateMultiplayer()
+        void CreateMultiplayer()
         {
             Console.WriteLine("Would you  like to play against another store?");
             string result = Console.ReadLine();
-            if (result.ToLower() == "yes" || result.ToLower() == "no" )
+            if (result.ToLower() == "yes")
             {
-                return result;
+                RunMultiplayer();
             }
-            else
-            {
-              return  result= CreateMultiplayer();
-            }
+
         }
         void RunMultiplayer()
         {

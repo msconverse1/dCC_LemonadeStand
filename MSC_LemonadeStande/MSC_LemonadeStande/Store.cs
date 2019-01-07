@@ -9,12 +9,18 @@ namespace MSC_LemonadeStande
     class Store
     {
         int numCupsToMake;
-       public List<Cups> prepedCups;
+        public List<Cups> prepedCups;
         public BuySupplies buySupplies;
         int currentDay;
-
         public Inventory CurrentItems { get; set; }
-
+        bool IsFull()
+        {
+            return true;
+        }
+        bool IsEmpty()
+        {
+            return false;
+        }
         public Store()
         {
             buySupplies = new BuySupplies();
@@ -39,7 +45,6 @@ namespace MSC_LemonadeStande
                                            );
                 i++;
             }
-
         }
         public  void CreateSetNumCups(Weather weather,int day)
         {
@@ -71,14 +76,13 @@ namespace MSC_LemonadeStande
             if (spoons> inventory.Sugar1)
             {
               spoons =  AskForSugar(inventory);
-                return spoons;
+              return spoons;
             }
             else
             {
                 inventory.Sugar1 -= spoons;
                 return spoons;
             }
-
         }
         public int AskForIce(Inventory inventory)
         {
@@ -111,14 +115,6 @@ namespace MSC_LemonadeStande
                 inventory.Lemons1 -= lemons;
                 return lemons;
             }
-        }
-        bool IsFull()
-        {
-            return true;
-        }
-        bool IsEmpty()
-        {
-            return false;
         }
         void ShowCurrentWeather(Weather weather)
         {

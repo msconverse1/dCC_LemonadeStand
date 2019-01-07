@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace MSC_LemonadeStande
 {
-    
     class CustomerInteraction
     {
         Store Store;
         Player Player;
         Inventory Inventory;
-
         public CustomerInteraction(Player player, Store store)
         {
             Store = store;
@@ -79,7 +77,5 @@ namespace MSC_LemonadeStande
                 }
             }
         }
-
     }
-
 }
