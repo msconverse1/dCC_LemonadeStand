@@ -14,6 +14,7 @@ namespace MSC_LemonadeStande
         CustomerInteraction customer;
         int currentDay;
         List<Player> PotinalCustomers;
+        List<Store> TotalStores;
         public Game()
         {
             newCal = new Weather();
@@ -50,6 +51,9 @@ namespace MSC_LemonadeStande
                 Console.WriteLine("Press Any Key to Start the next day..");
                 Console.ReadLine();
                 currentDay++;
+                store.CurrentItems.Ice.SetDaysRemaining(  store.CurrentItems.Ice.GetDaysRemaining()-1);
+                store.CurrentItems.Lemons.SetDaysRemaining(store.CurrentItems.Lemons.GetDaysRemaining() - 1);
+                store.CurrentItems.Sugar.SetDaysRemaining(store.CurrentItems.Sugar.GetDaysRemaining() - 1);
             }
         }
         void SetUpWeather(int daysToPlay)
@@ -86,6 +90,30 @@ namespace MSC_LemonadeStande
             for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
             {
                 PotinalCustomers.Add(new Player());
+            }
+        }
+        string CreateMultiplayer()
+        {
+            Console.WriteLine("Would you  like to play against another store?");
+            string result = Console.ReadLine();
+            if (result.ToLower() == "yes" || result.ToLower() == "no" )
+            {
+                return result;
+            }
+            else
+            {
+              return  result= CreateMultiplayer();
+            }
+        }
+        void RunMultiplayer()
+        {
+            Store store2 = new Store();
+            TotalStores.Add(store);
+            TotalStores.Add(store2);
+
+            foreach (var ministore in TotalStores)
+            {
+                StartGame();
             }
         }
     }

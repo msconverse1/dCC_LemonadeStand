@@ -31,7 +31,7 @@ namespace MSC_LemonadeStande
                         PlayerBuysCup(item);
                         if (Player.Thirst > 10)
                         {
-                            Console.WriteLine("I don't want to buy!");
+                            Console.WriteLine("Thanks But not Thirsty!");
                             break;
                         }
                     }
@@ -43,7 +43,7 @@ namespace MSC_LemonadeStande
                         PlayerBuysCup(item);
                         if (Player.Thirst > 10)
                         {
-                            Console.WriteLine("I don't want to buy!");
+                            Console.WriteLine("Thanks But not Thirsty!");
                             break;
                         }
                     }

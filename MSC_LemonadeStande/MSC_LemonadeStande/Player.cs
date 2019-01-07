@@ -19,18 +19,21 @@ namespace MSC_LemonadeStande
         public void SetWantSugar(bool value)
         {
             wantSugar = value;
+           
         }
         public Player()
         {
             Random cash = new Random();
             cashOnHand = cash.Next(10, 42);
-            System.Threading.Thread.Sleep(75);
+            System.Threading.Thread.Sleep(35);
             WillingToPay = cash.Next(5, 15);
-            //System.Threading.Thread.Sleep(50);
+           
             Random water = new Random();
             Thirst = water.Next(0, 20);
             Random sugar = new Random();
-            if (sugar.Next(0, 1)==0)
+            int check = sugar.Next(0, 10);
+                 System.Threading.Thread.Sleep(20);
+            if (check % 2==0)
             {
                 wantSugar = false;
             }

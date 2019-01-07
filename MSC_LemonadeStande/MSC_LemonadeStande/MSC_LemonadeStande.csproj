@@ -48,6 +48,7 @@
     <Compile Include="CustomerInteraction.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="gwAPI.cs" />
     <Compile Include="Ice.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Lemons.cs" />
