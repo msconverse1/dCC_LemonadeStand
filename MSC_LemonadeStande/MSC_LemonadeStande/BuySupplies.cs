@@ -16,10 +16,10 @@ namespace MSC_LemonadeStande
             Console.WriteLine("How much Ice would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
             Console.WriteLine("Current on Hand: " + prevIce);
-            Console.WriteLine("Costs: " + "$" + inventory.Ice.GetPrice());
+            Console.WriteLine("Costs: " + "$" + inventory.Ice[0].GetPrice());
             int.TryParse(Console.ReadLine(), out  int ice);
             inventory.Ice1 = ice;
-            inventory.CalculateSpentMoney(inventory.Ice.GetPrice() * inventory.Ice1);
+            inventory.CalculateSpentMoney(inventory.Ice[0].GetPrice() * inventory.Ice1);
 
             inventory.Ice1 *= 32;
             inventory.Ice1 += prevIce;
@@ -31,10 +31,10 @@ namespace MSC_LemonadeStande
             Console.WriteLine("How much Sugar would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
             Console.WriteLine("Current on Hand: " + prevSugar);
-            Console.WriteLine("Costs: " + "$" + inventory.Sugar.GetPrice());
+            Console.WriteLine("Costs: " + "$" + inventory.Sugar[0].GetPrice());
             int.TryParse(Console.ReadLine(), out int sugar);
             inventory.Sugar1 = sugar;
-            inventory.CalculateSpentMoney(inventory.Sugar.GetPrice() * inventory.Sugar1);
+            inventory.CalculateSpentMoney(inventory.Sugar[0].GetPrice() * inventory.Sugar1);
             inventory.Sugar1 *= 16;
             inventory.Sugar1 += prevSugar;
         }
@@ -45,10 +45,10 @@ namespace MSC_LemonadeStande
             Console.WriteLine("How many Lemons would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
             Console.WriteLine("Current on Hand: " + prevlemons);
-            Console.WriteLine("Costs: " + "$" + inventory.Lemons.GetPrice());
+            Console.WriteLine("Costs: " + "$" + inventory.Lemons[0].GetPrice());
             int.TryParse(Console.ReadLine(), out int lemons);
             inventory.Lemons1 = lemons;
-            inventory.CalculateSpentMoney(inventory.Lemons.GetPrice() * inventory.Lemons1);
+            inventory.CalculateSpentMoney(inventory.Lemons[0].GetPrice() * inventory.Lemons1);
             inventory.Lemons1 *= 4;
             inventory.Lemons1 += prevlemons;
         }

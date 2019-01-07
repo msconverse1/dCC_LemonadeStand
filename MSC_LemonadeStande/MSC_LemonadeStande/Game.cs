@@ -10,16 +10,16 @@ namespace MSC_LemonadeStande
     {
         Weather newCal;
         Store store;
-        readonly Player player;
         CustomerInteraction customer;
         int currentDay;
         List<Player> PotinalCustomers;
         List<Store> TotalStores;
+        Random random;
         public Game()
         {
             newCal = new Weather();
             store = new Store();
-            player = new Player();      
+            random = new Random(); 
         }
         public void StartGame()
         {
@@ -41,7 +41,6 @@ namespace MSC_LemonadeStande
                 {
                     customer = new CustomerInteraction(item, store);
                     newCal.GetADaysWeather(currentDay);
-                    
                     customer.IsPlayerThirsty();
                     Console.WriteLine("Press ant Key to cotinue..");
                     Console.ReadLine();
@@ -51,14 +50,12 @@ namespace MSC_LemonadeStande
                 Console.WriteLine("Press Any Key to Start the next day..");
                 Console.ReadLine();
                 currentDay++;
-                store.CurrentItems.Ice.SetDaysRemaining(  store.CurrentItems.Ice.GetDaysRemaining()-1);
-                store.CurrentItems.Lemons.SetDaysRemaining(store.CurrentItems.Lemons.GetDaysRemaining() - 1);
-                store.CurrentItems.Sugar.SetDaysRemaining(store.CurrentItems.Sugar.GetDaysRemaining() - 1);
+                DecreaseLife();
             }
         }
         void SetUpWeather(int daysToPlay)
         {
-            newCal.CreateWeather(daysToPlay);
+            newCal.CreateWeather(daysToPlay,random);
         }
         void CreateStore()
         {
@@ -68,11 +65,12 @@ namespace MSC_LemonadeStande
             store.CreateSetNumCups(newCal, currentDay);
             store.CupContains();
             store.Profits();
+            Console.WriteLine("Press ant Key to cotinue..");
             Console.ReadLine();
         }
         void ShowCurrentWeather(int day)
         {     
-            Console.WriteLine("Current Day: " + currentDay);
+            Console.WriteLine("Current Day: " + day);
             Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[day].Forecast);
             Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[day].Temperature);
         }
@@ -87,9 +85,10 @@ namespace MSC_LemonadeStande
         void CreateCustomers(int day)
         {
             PotinalCustomers = new List<Player>();
+            
             for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
             {
-                PotinalCustomers.Add(new Player());
+                PotinalCustomers.Add(new Player(random));
             }
         }
         string CreateMultiplayer()
@@ -115,6 +114,43 @@ namespace MSC_LemonadeStande
             {
                 StartGame();
             }
+        }
+        void DecreaseLife()
+        {
+            foreach (var item in store.CurrentItems.Ice)
+            {
+                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
+            }
+            foreach (var item in store.CurrentItems.Lemons)
+            {
+                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
+            }
+            foreach (var item in store.CurrentItems.Sugar)
+            {
+                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
+            }
+            for (int i = 0; i < store.CurrentItems.Ice.Count; i++)
+            {
+                if (store.CurrentItems.Ice[i].GetDaysRemaining() <=0)
+                {
+                    store.CurrentItems.Ice.Remove(store.CurrentItems.Ice[i]);
+                }
+            }
+            for (int i = 0; i < store.CurrentItems.Lemons.Count; i++)
+            {
+                if (store.CurrentItems.Lemons[i].GetDaysRemaining() <= 0)
+                {
+                    store.CurrentItems.Lemons.Remove(store.CurrentItems.Lemons[i]);
+                }
+            }
+            for (int i = 0; i < store.CurrentItems.Sugar.Count; i++)
+            {
+                if (store.CurrentItems.Sugar[i].GetDaysRemaining() <= 0)
+                {
+                    store.CurrentItems.Sugar.Remove(store.CurrentItems.Sugar[i]);
+                }
+            }
+
         }
     }
 }

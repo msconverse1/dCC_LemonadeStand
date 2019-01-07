@@ -13,7 +13,7 @@ namespace MSC_LemonadeStande
         public BuySupplies buySupplies;
         int currentDay;
 
-        internal Inventory CurrentItems { get; set; }
+        public Inventory CurrentItems { get; set; }
 
         public Store()
         {
@@ -143,9 +143,10 @@ namespace MSC_LemonadeStande
             {
                 //sugar is 1.5, ice .75 , lemons 2.25 1cup cost 4.5 to make
                 //16,32,4
-                item.SetPrice(( ((CurrentItems.Sugar.GetPrice()/4 * item.Sugar)
-                                 + (CurrentItems.Lemons.GetPrice()/2 * item.Lemons)
-                                 + (CurrentItems.Ice.GetPrice()/3 * item.Ice))* factor
+                
+                item.SetPrice(( ((CurrentItems.Sugar[0].GetPrice()/4 * item.Sugar)
+                                 + (CurrentItems.Lemons[0].GetPrice()/2 * item.Lemons)
+                                 + (CurrentItems.Ice[0].GetPrice()/3 * item.Ice))* factor
                                   ));
             }
         }

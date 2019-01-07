@@ -19,15 +19,14 @@ namespace MSC_LemonadeStande
             WeatherForTheWeek = value;
         }
 
-       public void CreateWeather(int numDays)
+       public void CreateWeather(int numDays,Random random)
         {
             SetDay(new List<Day>());
             while (currentDay<numDays)
             {
-                WeatherForTheWeek.Add(new Day());
-               
-                WeatherForTheWeek[currentDay].CurrentWeather();
-                WeatherForTheWeek[currentDay].SetInflation();
+                WeatherForTheWeek.Add(new Day());    
+                WeatherForTheWeek[currentDay].CurrentWeather(random);
+                WeatherForTheWeek[currentDay].SetInflation(random);
                     currentDay++;
             }
         }

@@ -12,9 +12,9 @@ namespace MSC_LemonadeStande
          int sugar1;
          int lemons1;
          int cups;
-        public Ice Ice;
-        public Sugar Sugar;
-        public Lemons Lemons;
+        public List<Ice> Ice;
+        public List<Sugar> Sugar;
+        public List<Lemons> Lemons;
         private double startingMoney;
         private double remainingMoney;
         private double collectedMoney;
@@ -31,9 +31,9 @@ namespace MSC_LemonadeStande
         {
             StartingMoney = 20.00;
             RemainingMoney = StartingMoney;
-            Ice = new Ice();
-            Sugar = new Sugar();
-            Lemons = new Lemons();
+            Ice = new List<Ice>();
+            Sugar = new List<Sugar>();
+            Lemons = new List<Lemons>();
 
         }
 

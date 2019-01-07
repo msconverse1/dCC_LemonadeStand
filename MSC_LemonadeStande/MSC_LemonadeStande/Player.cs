@@ -18,21 +18,14 @@ namespace MSC_LemonadeStande
         }
         public void SetWantSugar(bool value)
         {
-            wantSugar = value;
-           
+            wantSugar = value;  
         }
-        public Player()
+        public Player(Random random)
         {
-            Random cash = new Random();
-            cashOnHand = cash.Next(10, 42);
-            System.Threading.Thread.Sleep(35);
-            WillingToPay = cash.Next(5, 15);
-           
-            Random water = new Random();
-            Thirst = water.Next(0, 20);
-            Random sugar = new Random();
-            int check = sugar.Next(0, 10);
-                 System.Threading.Thread.Sleep(20);
+            cashOnHand = random.Next(10, 42);
+            WillingToPay = random.Next(5, 15);
+            Thirst = random.Next(0, 20);
+            int check = random.Next(0, 10);
             if (check % 2==0)
             {
                 wantSugar = false;
@@ -42,6 +35,5 @@ namespace MSC_LemonadeStande
                 wantSugar = true;
             }
         }
-
     }
 }

@@ -62,14 +62,11 @@ namespace MSC_LemonadeStande
         //            break;
         //    }
         //}
-        public  void CurrentWeather()
-        {
-            Random Temp = new Random();
+        public  void CurrentWeather(Random Temp)
+        { 
             temperature = Temp.Next(70, 120);
-            System.Threading.Thread.Sleep(50);
-            Random int_forecast = new Random();
-         
-            switch (int_forecast.Next(1, 3))
+            int type = Temp.Next(1, 3);
+            switch (type)
             {
                 case 1:
                     forecast = "Clear";
@@ -85,11 +82,11 @@ namespace MSC_LemonadeStande
                     break;
             }
         }
-       public void SetInflation()
+       public void SetInflation(Random Temp)
         {
-            Random chanceToVisit = new Random();
-            changePeople = chanceToVisit.Next(10, 30);
-            System.Threading.Thread.Sleep(15);
+            
+            changePeople = Temp.Next(10, 30);
+            
             switch (forecast)
             {
                 case "Clear":
@@ -103,7 +100,7 @@ namespace MSC_LemonadeStande
                     break;
                 case "Rain":
                     changePrice = rainFactor;
-                    changePeople *= 0.5;
+                    changePeople *= 0.25;
                     break;
                 default:
                     break;
