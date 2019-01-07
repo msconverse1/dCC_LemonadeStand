@@ -23,6 +23,7 @@ namespace MSC_LemonadeStande
         }
         public void StartGame()
         {
+            GwAPI.GetWeather();
             Console.WriteLine("How Many Days would you like to play");
             int.TryParse( Console.ReadLine(),out int daysTPlay);
             SetUpWeather(daysTPlay);
