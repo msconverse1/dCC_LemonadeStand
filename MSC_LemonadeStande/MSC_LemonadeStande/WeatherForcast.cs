@@ -15,9 +15,9 @@ namespace MSC_LemonadeStande
     {
         public string name { get; set; }
     }
-   public class temp
+   public class main
     {
-       public double day { get; set; }
+       public double temp { get; set; }
     }
    public class weather
     {
@@ -27,8 +27,8 @@ namespace MSC_LemonadeStande
    public class list
     {
         public double dt { get; set; }//days in millsecounds
-      public  temp temp { get; set; }
-        public List<weather> weathers { get; set; } // weather list 
+      public  main main { get; set; }
+        public List<weather> weather { get; set; } // weather list 
         city city { get; set; }
     }
 }

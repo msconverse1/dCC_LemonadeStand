@@ -30,7 +30,7 @@ namespace MSC_LemonadeStande
                     currentDay++;
             }
         }
-        public void GetADaysWeather(int dayUserWants)
+        public virtual void GetADaysWeather(int dayUserWants)
         {
             Console.Clear();
             Console.WriteLine("Current Day: "+dayUserWants);

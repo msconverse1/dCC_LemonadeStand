@@ -9,17 +9,21 @@ namespace MSC_LemonadeStande
     class Day
     {
         private string forecast;
-        private double temperature;
+        private float temperature;
         private double changePrice;
         private double changePeople;
         private readonly double sunnyFactor = 1.5;
         private readonly double rainFactor = .5;
-
+        private readonly double snowFactor = .2;
         public string Forecast { get => forecast; set => forecast = value; }
-        public double Temperature { get => temperature; set => temperature = value; }
+        public float Temperature { get => temperature; set => temperature = value; }
         public double ChangePrice { get => changePrice; set => changePrice = value; }
         public double ChangePeople { get => changePeople; set => changePeople = value; }
-
+        public void CreateList(string forcast, float temp)
+        {
+           Temperature = temp;
+           Forecast = forcast;
+        }
         public string GetForecast()
         {
             return forecast;
@@ -64,6 +68,10 @@ namespace MSC_LemonadeStande
                 case "Rain":
                     changePrice = rainFactor;
                     changePeople *= 0.25;
+                    break;
+                case "Snow":
+                    changePrice = snowFactor;
+                    changePeople *= .05;
                     break;
                 default:
                     break;

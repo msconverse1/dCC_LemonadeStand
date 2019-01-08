@@ -27,12 +27,12 @@ namespace MSC_LemonadeStande
            // Geolocation.GetGeoLocation();
             Console.WriteLine("How Many Days would you like to play");
             int.TryParse( Console.ReadLine(),out int daysTPlay);
-           // GwAPI.GetWeather(daysTPlay);
             SetUpWeather(daysTPlay);
             Console.WriteLine("Do you wish to see the Weeks Weather?");
             if (Console.ReadLine().ToLower()=="yes")
             {
-                ShowWeeksWeather(newCal.WeatherForTheWeek);
+               
+                ShowWeeksWeather(GwAPI.weeksWeathers);
                 Console.WriteLine("Press ant Key to cotinue..");
                 Console.ReadKey();
             }
@@ -43,7 +43,8 @@ namespace MSC_LemonadeStande
                 foreach (var item in PotinalCustomers)
                 {
                     customer = new CustomerInteraction(item, store);
-                    newCal.GetADaysWeather(currentDay);
+                    GwAPI.GetADaysWeather(currentDay);
+                    //newCal.GetADaysWeather(currentDay);
                     customer.IsPlayerThirsty();
                     Console.WriteLine("Press ant Key to cotinue..");
                     Console.ReadLine();
@@ -52,7 +53,8 @@ namespace MSC_LemonadeStande
                         break;
                     }
                 }
-                newCal.GetADaysWeather(currentDay);
+                GwAPI.GetADaysWeather(currentDay);
+                //newCal.GetADaysWeather(currentDay);
                 store.CalculateDaysPay();
                 Console.WriteLine("Press Any Key to Start the next day..");
                 Console.ReadLine();
@@ -62,11 +64,14 @@ namespace MSC_LemonadeStande
         }
         void SetUpWeather(int daysToPlay)
         {
-            newCal.CreateWeather(daysToPlay,random);
+            GwAPI.GetWeather(daysToPlay, random);
+            //newCal.CreateWeather(daysToPlay,random);
         }
+       
         void CreateStore()
         {
-            newCal.GetADaysWeather(currentDay);
+            GwAPI.GetADaysWeather(currentDay);
+           // newCal.GetADaysWeather(currentDay);
             store.CreateInventory();
             
             store.CreateSetNumCups(newCal, currentDay);
@@ -78,8 +83,8 @@ namespace MSC_LemonadeStande
         void ShowCurrentWeather(int day)
         {     
             Console.WriteLine("Current Day: " + day);
-            Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[day].Forecast);
-            Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[day].Temperature);
+            Console.WriteLine("Current Weather: " + GwAPI.weeksWeathers[day].Forecast);
+            Console.WriteLine("Current Tempature: " + GwAPI.weeksWeathers[day].Temperature);
         }
         void ShowWeeksWeather(List<Day>test)
         {
@@ -93,7 +98,7 @@ namespace MSC_LemonadeStande
         {
             PotinalCustomers = new List<Player>();
             
-            for (int i = 0; i < newCal.WeatherForTheWeek[day].ChangePeople; i++)
+            for (int i = 0; i < GwAPI.weeksWeathers[day].ChangePeople; i++)
             {
                 PotinalCustomers.Add(new Player(random));
             }

@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace MSC_LemonadeStande
 {
-    class WeeksWeather
+    class WeeksWeather : Day
     {
-        static float tempature;
-        static string forecast;
-        public static string Forecast { get { return forecast; } set { forecast = value; } }
-        public static float Tempature { get { return tempature; } set { tempature = value; } }
+        // float tempature;
+        // string forecast;
+        //public  string Forecast { get { return forecast; } set { forecast = value; } }
+        //public  float Tempature { get { return tempature; } set { tempature = value; } }
         
-        public void CreateList(string forcast,float temp)
-        {
-            Tempature = temp;
-            Forecast = forcast;
-        }
+  
     }
 }

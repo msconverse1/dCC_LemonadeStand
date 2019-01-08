@@ -20,7 +20,8 @@ namespace MSC_LemonadeStande
      static public  void GetGeoLocation()
         {
              string url = $"https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDFU_AN2IpA1_u6gELnn1yAk01nutBHtcs ";
-           
+           //look at string writer
+
         }
 
 

@@ -9,27 +9,31 @@ using Newtonsoft.Json;
 
 namespace MSC_LemonadeStande
 {
-     static class GwAPI
+      class GwAPI : Weather
     {
         const string APPID = "b12d7daaddc0081351361cc2c38e4f1e";
         const string location = "Milwaukee";
         static float tempature;
         static string forecast;
-      public static List<WeeksWeather> weeksWeathers;
+      public static List<Day> weeksWeathers;
 
         public static string Forecast { get { return forecast; } set { forecast = value; } }
         public static float Tempature { get { return tempature; } set { tempature = value; } }
-        static void SetWeather(List<WeeksWeather> value)
+        static void SetWeather(List<Day> value)
         {
             weeksWeathers = value;
         }
-        public static void GetWeather(int day)
+       static public List<Day> GetDays()
+        {
+            return weeksWeathers;
+        }
+        public static void GetWeather(int day,Random random)
         {
 
             //current time 
           //  CurrentTimeWeather();
             //5day ForeCast
-            getForcast(day);
+            getForcast(day,random);
         }
         static void CurrentTimeWeather()
         {
@@ -47,7 +51,7 @@ namespace MSC_LemonadeStande
                 Tempature = ConvertCToF(output.main.temp);
             }
         }
-      static void getForcast(int day)
+      static void getForcast(int day,Random random)
         {
             string url = $"http://api.openweathermap.org/data/2.5/forecast?q={location}" +
                              $"&mode=json&units=metric&APPID={APPID}";
@@ -56,24 +60,37 @@ namespace MSC_LemonadeStande
                 var json = web.DownloadString(url);
                 var Object = JsonConvert.DeserializeObject<WeatherForcast>(json);
                 WeatherForcast forcast = Object;
-                SetWeather(new List<WeeksWeather>());
+                
+                SetWeather(new List<Day>());
                 for (int i = 0; i < day; i++)
                 {
-                    weeksWeathers.Add(new WeeksWeather());
+                    
+                    weeksWeathers.Add(new Day());
                     if (i<5)
                     {
-                        weeksWeathers[i].CreateList(forcast.list[i].weathers[0].main, ConvertCToF(forcast.list[i].temp.day));
+                        weeksWeathers[i].CreateList(forcast.list[i].weather[0].main, ConvertCToF(forcast.list[i].main.temp));
+                        weeksWeathers[i].SetInflation(random);
                     }
-                    if (i >=5)
+                   else if (i >=5)
                     {
-                        weeksWeathers[i].CreateList(forcast.list[1].weathers[0].main, ConvertCToF(forcast.list[1].temp.day));
+                        weeksWeathers[i].CreateList(forcast.list[1].weather[0].main, ConvertCToF(forcast.list[1].main.temp));
+                        weeksWeathers[i].SetInflation(random);
                     }
                 }
             }
         }
-  
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
+        public static   void GetADaysWeather(int dayUserWants)
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
+        {
+            Console.Clear();
+            Console.WriteLine("Current Day: " + dayUserWants);
+            Console.WriteLine("Current Weather: " + weeksWeathers[dayUserWants].GetForecast());
+            Console.WriteLine("Current Tempature: " + (float)weeksWeathers[dayUserWants].GetTemperature());
+        }
+
         //Methods for Parsing the JSON 
-       // RM(datatypes name must match the JSON datatype name)
+        // RM(datatypes name must match the JSON datatype name)
         public  class weather
         {
            public  string main { get; set; }

@@ -58,15 +58,18 @@ namespace MSC_LemonadeStande
             while(numCupsToMake < numCups)
             {
                 Console.Clear();
-                ShowCurrentWeather(weather);
+                GwAPI.GetADaysWeather(currentDay);
+                //ShowCurrentWeather(weather);
                 prepedCups.Add(new Cups());
                 Console.WriteLine("Cup: " + numCupsToMake);
                 prepedCups[numCupsToMake].CreateCup(AskForIce(CurrentItems), AskForSugar(CurrentItems), AskForLemons(CurrentItems), IsFull());
                 numCupsToMake++;
-                Console.Clear();
-                ShowCurrentWeather(weather);
+                
+                GwAPI.GetADaysWeather(currentDay);
+                //ShowCurrentWeather(weather);
             }
-            SetPriceOfEachCup( weather.WeatherForTheWeek[currentDay].ChangePrice);
+            
+            SetPriceOfEachCup(GwAPI.weeksWeathers[currentDay].ChangePrice);
         }
         public int AskForSugar(Inventory inventory)
         {
@@ -120,7 +123,7 @@ namespace MSC_LemonadeStande
         {
             Console.Clear();
             Console.WriteLine("Current Weather: " + weather.WeatherForTheWeek[currentDay].Forecast);
-            Console.WriteLine("Current Tempature: " + weather.WeatherForTheWeek[currentDay].Temperature);
+            Console.WriteLine("Current Tempature: " +weather.WeatherForTheWeek[currentDay].Temperature);
         }
         public void Profits()
         {
