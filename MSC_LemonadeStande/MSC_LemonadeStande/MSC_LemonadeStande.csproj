@@ -51,6 +51,7 @@
     <Compile Include="CustomerInteraction.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Geolocation.cs" />
     <Compile Include="gwAPI.cs" />
     <Compile Include="Ice.cs" />
     <Compile Include="Inventory.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Supplies.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="Weather.cs" />
+    <Compile Include="WeatherForcast.cs" />
+    <Compile Include="WeeksWeather.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

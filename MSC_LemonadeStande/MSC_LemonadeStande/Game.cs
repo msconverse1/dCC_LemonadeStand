@@ -23,14 +23,16 @@ namespace MSC_LemonadeStande
         }
         public void StartGame()
         {
-            GwAPI.GetWeather();
+             
+           // Geolocation.GetGeoLocation();
             Console.WriteLine("How Many Days would you like to play");
             int.TryParse( Console.ReadLine(),out int daysTPlay);
+           // GwAPI.GetWeather(daysTPlay);
             SetUpWeather(daysTPlay);
             Console.WriteLine("Do you wish to see the Weeks Weather?");
             if (Console.ReadLine().ToLower()=="yes")
             {
-                ShowWeeksWeather();
+                ShowWeeksWeather(newCal.WeatherForTheWeek);
                 Console.WriteLine("Press ant Key to cotinue..");
                 Console.ReadKey();
             }
@@ -45,13 +47,17 @@ namespace MSC_LemonadeStande
                     customer.IsPlayerThirsty();
                     Console.WriteLine("Press ant Key to cotinue..");
                     Console.ReadLine();
+                    if (store.prepedCups.Count ==0)
+                    {
+                        break;
+                    }
                 }
                 newCal.GetADaysWeather(currentDay);
                 store.CalculateDaysPay();
                 Console.WriteLine("Press Any Key to Start the next day..");
                 Console.ReadLine();
                 currentDay++;
-                DecreaseLife();
+                store.DecreaseLife();
             }
         }
         void SetUpWeather(int daysToPlay)
@@ -75,10 +81,10 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Current Weather: " + newCal.WeatherForTheWeek[day].Forecast);
             Console.WriteLine("Current Tempature: " + newCal.WeatherForTheWeek[day].Temperature);
         }
-        void ShowWeeksWeather()
+        void ShowWeeksWeather(List<Day>test)
         {
             Console.Clear();
-            for (int i = 0; i < newCal.WeatherForTheWeek.Count(); i++)
+            for (int i = 0; i < test.Count(); i++)
             {
                 ShowCurrentWeather(i);
             }
@@ -113,42 +119,6 @@ namespace MSC_LemonadeStande
                 StartGame();
             }
         }
-        void DecreaseLife()
-        {
-            foreach (var item in store.CurrentItems.Ice)
-            {
-                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
-            }
-            foreach (var item in store.CurrentItems.Lemons)
-            {
-                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
-            }
-            foreach (var item in store.CurrentItems.Sugar)
-            {
-                item.SetDaysRemaining(item.GetDaysRemaining() - 1);
-            }
-            for (int i = 0; i < store.CurrentItems.Ice.Count; i++)
-            {
-                if (store.CurrentItems.Ice[i].GetDaysRemaining() <=0)
-                {
-                    store.CurrentItems.Ice.Remove(store.CurrentItems.Ice[i]);
-                }
-            }
-            for (int i = 0; i < store.CurrentItems.Lemons.Count; i++)
-            {
-                if (store.CurrentItems.Lemons[i].GetDaysRemaining() <= 0)
-                {
-                    store.CurrentItems.Lemons.Remove(store.CurrentItems.Lemons[i]);
-                }
-            }
-            for (int i = 0; i < store.CurrentItems.Sugar.Count; i++)
-            {
-                if (store.CurrentItems.Sugar[i].GetDaysRemaining() <= 0)
-                {
-                    store.CurrentItems.Sugar.Remove(store.CurrentItems.Sugar[i]);
-                }
-            }
-
-        }
+      
     }
 }

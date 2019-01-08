@@ -140,9 +140,9 @@ namespace MSC_LemonadeStande
                 //sugar is 1.5, ice .75 , lemons 2.25 1cup cost 4.5 to make
                 //16,32,4
                 
-                item.SetPrice(( ((CurrentItems.Sugar[0].GetPrice()/4 * item.Sugar)
-                                 + (CurrentItems.Lemons[0].GetPrice()/2 * item.Lemons)
-                                 + (CurrentItems.Ice[0].GetPrice()/3 * item.Ice))* factor
+                item.SetPrice(( ((CurrentItems.Sugar.GetPrice()/4 * item.Sugar)
+                                 + (CurrentItems.Lemons.GetPrice()/2 * item.Lemons)
+                                 + (CurrentItems.Ice.GetPrice()/3 * item.Ice))* factor
                                   ));
             }
         }
@@ -160,6 +160,25 @@ namespace MSC_LemonadeStande
             buySupplies.BuyIce(CurrentItems);
             buySupplies.Buylemons(CurrentItems);
             buySupplies.BuySugar(CurrentItems);
+        }
+       public void DecreaseLife()
+        {
+           CurrentItems.Ice.SetDaysRemaining(CurrentItems.Ice.GetDaysRemaining() - 1);
+            CurrentItems.Sugar.SetDaysRemaining(CurrentItems.Sugar.GetDaysRemaining() - 1);
+            CurrentItems.Lemons.SetDaysRemaining(CurrentItems.Lemons.GetDaysRemaining() - 1);
+            if (CurrentItems.Ice.GetDaysRemaining() <= 0)
+            {
+                CurrentItems.Ice1 -= buySupplies.PrevIce;
+            }
+            if (CurrentItems.Sugar.GetDaysRemaining() <= 0)
+            {
+                CurrentItems.Sugar1 -= buySupplies.PrevSugar;
+            }
+            if (CurrentItems.Lemons.GetDaysRemaining() <= 0)
+            {
+                CurrentItems.Lemons1 -= buySupplies.Prevlemons ;
+            }
+
         }
     }
 }
