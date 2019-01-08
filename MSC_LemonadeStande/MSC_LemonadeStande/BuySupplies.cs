@@ -18,8 +18,6 @@ namespace MSC_LemonadeStande
 
         public void BuyIce(Inventory inventory)
         {
-
-            
             PrevIce = inventory.Ice1;
             Console.WriteLine("How much Ice would you like to buy?");
             Console.WriteLine("Remaining Balnace: $" + inventory.RemainingMoney);
@@ -31,7 +29,7 @@ namespace MSC_LemonadeStande
             
             inventory.Ice1 = ice;
             
-            inventory.CalculateSpentMoney(inventory.Ice.GetPrice() * inventory.Ice1);
+            inventory.CalculateSpentMoney((float)inventory.Ice.GetPrice() * inventory.Ice1);
             inventory.Ice1 *= 32;
             inventory.Ice1 += PrevIce;
         }
@@ -45,7 +43,7 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Costs: " + "$" + inventory.Sugar.GetPrice());
             int.TryParse(Console.ReadLine(), out int sugar);
             inventory.Sugar1 = sugar;
-            inventory.CalculateSpentMoney(inventory.Sugar.GetPrice() * inventory.Sugar1);
+            inventory.CalculateSpentMoney((float)inventory.Sugar.GetPrice() * inventory.Sugar1);
             inventory.Sugar1 *= 16;
             inventory.Sugar1 += PrevSugar;
         }
@@ -58,7 +56,7 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Costs: " + "$" + inventory.Lemons.GetPrice());
             int.TryParse(Console.ReadLine(), out int lemons);
             inventory.Lemons1 = lemons;
-            inventory.CalculateSpentMoney(inventory.Lemons.GetPrice() * inventory.Lemons1);
+            inventory.CalculateSpentMoney((float)inventory.Lemons.GetPrice() * inventory.Lemons1);
             inventory.Lemons1 *= 4;
             inventory.Lemons1 += Prevlemons;
         }

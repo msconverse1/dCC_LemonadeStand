@@ -46,7 +46,7 @@ namespace MSC_LemonadeStande
                 i++;
             }
         }
-        public  void CreateSetNumCups(Weather weather,int day)
+        public  void CreateSetNumCups(int day)
         {
             SetCup(new List<Cups>());
             numCupsToMake = 0;
@@ -55,67 +55,102 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Currently have Ice:" + CurrentItems.Ice1 + "Currently have Sugar: " + CurrentItems.Sugar1 +
                                        "Currently have Lemons: " + CurrentItems.Lemons1);
             int.TryParse(Console.ReadLine(), out int numCups);
-            while(numCupsToMake < numCups)
+            Console.WriteLine("how many cups do you want to make the same?");
+            int.TryParse(Console.ReadLine(), out int setOfCups);
+
+            if (setOfCups >= 2&& setOfCups < numCups)
             {
-                Console.Clear();
-                GwAPI.GetADaysWeather(currentDay);
-                //ShowCurrentWeather(weather);
-                prepedCups.Add(new Cups());
-                Console.WriteLine("Cup: " + numCupsToMake);
-                prepedCups[numCupsToMake].CreateCup(AskForIce(CurrentItems), AskForSugar(CurrentItems), AskForLemons(CurrentItems), IsFull());
-                numCupsToMake++;
-                
-                GwAPI.GetADaysWeather(currentDay);
-                //ShowCurrentWeather(weather);
+                int ice = AskForIce(CurrentItems,setOfCups);
+                int lemons = AskForLemons(CurrentItems,setOfCups);
+                int sugar = AskForSugar(CurrentItems,setOfCups);
+
+                for (int i = 0; i < setOfCups; i++)
+                {
+                    prepedCups.Add(new Cups());
+                    prepedCups[i].CreateCup(ice, lemons, sugar, IsFull());
+                }
+
+                numCupsToMake = setOfCups;
             }
-            
+            while (numCupsToMake < numCups)
+                {
+               
+                Console.Clear();
+                    GwAPI.GetADaysWeather(currentDay);
+                    //ShowCurrentWeather(weather);
+                    prepedCups.Add(new Cups());
+                    Console.WriteLine("Cup: " + numCupsToMake);
+                    prepedCups[numCupsToMake].CreateCup(AskForIce(CurrentItems,setOfCups), AskForSugar(CurrentItems,setOfCups), AskForLemons(CurrentItems,setOfCups), IsFull());
+                    numCupsToMake++;
+
+                    GwAPI.GetADaysWeather(currentDay);
+                    //ShowCurrentWeather(weather);
+                }
+            if (setOfCups>numCups)
+            {
+                Console.WriteLine("Your set is higher than the numer of cups you can make lets try again");
+                CreateSetNumCups(day);
+            }
+                                
             SetPriceOfEachCup(GwAPI.weeksWeathers[currentDay].ChangePrice);
         }
-        public int AskForSugar(Inventory inventory)
+        public int AskForSugar(Inventory inventory,int setOfCups)
         {
             Console.WriteLine("How many spoons of sugar would you like to add?");
             Console.WriteLine("Amount on hand: " + inventory.Sugar1);
             int.TryParse(Console.ReadLine(), out int spoons);
+            if (setOfCups == 0)
+            {
+                setOfCups = 1;
+            }
             if (spoons> inventory.Sugar1)
             {
-              spoons =  AskForSugar(inventory);
+              spoons =  AskForSugar(inventory,setOfCups);
               return spoons;
             }
             else
             {
-                inventory.Sugar1 -= spoons;
+                inventory.Sugar1 -= (spoons*setOfCups);
                 return spoons;
             }
         }
-        public int AskForIce(Inventory inventory)
+        public int AskForIce(Inventory inventory,int setOfCups)
         {
             Console.WriteLine("How many Cubes of ice would you like to add?");
             Console.WriteLine("Amount on hand: " + inventory.Ice1);
             int.TryParse(Console.ReadLine(), out int cubes);
+            if (setOfCups ==0)
+            {
+                setOfCups = 1;
+            }
             if (cubes > inventory.Ice1)
             {
-               cubes = AskForIce(inventory);
+               cubes = AskForIce(inventory,setOfCups);
                 return cubes;
             }
             else
             {
-                inventory.Ice1 -= cubes;
+                inventory.Ice1 -= (cubes * setOfCups);
                 return cubes;
             }
         }
-        public int AskForLemons(Inventory inventory)
+        public int AskForLemons(Inventory inventory,int setOfCups)
         {
             Console.WriteLine("How many Slices of lemons would you like to add?");
             Console.WriteLine("Amount on hand: " + inventory.Lemons1);
             int.TryParse(Console.ReadLine(), out int lemons);
+            if (setOfCups == 0)
+            {
+                setOfCups = 1;
+            }
             if (lemons > inventory.Lemons1)
             {
-                lemons = AskForLemons(inventory);
+                lemons = AskForLemons(inventory,setOfCups);
                 return lemons;
             }
             else
             {
-                inventory.Lemons1 -= lemons;
+                inventory.Lemons1 -= (lemons*setOfCups);
                 return lemons;
             }
         }

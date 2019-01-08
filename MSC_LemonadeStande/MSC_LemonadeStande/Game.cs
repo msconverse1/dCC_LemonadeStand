@@ -74,7 +74,7 @@ namespace MSC_LemonadeStande
            // newCal.GetADaysWeather(currentDay);
             store.CreateInventory();
             
-            store.CreateSetNumCups(newCal, currentDay);
+            store.CreateSetNumCups(currentDay);
             store.CupContains();
             store.Profits();
             Console.WriteLine("Press ant Key to cotinue..");

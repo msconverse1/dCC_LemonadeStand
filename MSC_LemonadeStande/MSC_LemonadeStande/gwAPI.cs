@@ -16,7 +16,8 @@ namespace MSC_LemonadeStande
         static float tempature;
         static string forecast;
       public static List<Day> weeksWeathers;
-
+       static int zipcode;
+        static string countrycode = "us";
         public static string Forecast { get { return forecast; } set { forecast = value; } }
         public static float Tempature { get { return tempature; } set { tempature = value; } }
         static void SetWeather(List<Day> value)
@@ -29,7 +30,8 @@ namespace MSC_LemonadeStande
         }
         public static void GetWeather(int day,Random random)
         {
-
+            Console.WriteLine("What Zipcode in the US do you want to set up your stand in");
+            int.TryParse(Console.ReadLine(),out zipcode);
             //current time 
           //  CurrentTimeWeather();
             //5day ForeCast
@@ -55,9 +57,12 @@ namespace MSC_LemonadeStande
         {
             string url = $"http://api.openweathermap.org/data/2.5/forecast?q={location}" +
                              $"&mode=json&units=metric&APPID={APPID}";
+            string urlforzipcode = $"http://api.openweathermap.org/data/2.5/forecast?zip={zipcode}" +
+                            $"&mode=json&units=metric&APPID={APPID}";
+           
             using (WebClient web = new WebClient())
             {
-                var json = web.DownloadString(url);
+                var json = web.DownloadString(urlforzipcode);
                 var Object = JsonConvert.DeserializeObject<WeatherForcast>(json);
                 WeatherForcast forcast = Object;
                 
