@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -17,7 +18,10 @@ namespace MSC_LemonadeStande
         static string forecast;
       public static List<Day> weeksWeathers;
        static int zipcode;
-        static string countrycode = "us";
+        
+       static string _usZipRegEx = @"^\d{5}(?:[-\s]\d{4})?$";
+       static string _caZipRegEx = @"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$";
+
         public static string Forecast { get { return forecast; } set { forecast = value; } }
         public static float Tempature { get { return tempature; } set { tempature = value; } }
         static void SetWeather(List<Day> value)
@@ -32,12 +36,27 @@ namespace MSC_LemonadeStande
         {
             Console.WriteLine("What Zipcode in the US do you want to set up your stand in");
             int.TryParse(Console.ReadLine(),out zipcode);
+            if (IsUSOrCanadianZipCode(zipcode.ToString()) == false)
+            {
+                GetWeather(day, random);
+            } 
             //current time 
-          //  CurrentTimeWeather();
+            //  CurrentTimeWeather();
             //5day ForeCast
             getForcast(day,random);
         }
-        static void CurrentTimeWeather()
+
+       static public bool IsUSOrCanadianZipCode(string zipCode)
+        {
+            var validZipCode = true;
+            if ((!Regex.Match(zipCode, _usZipRegEx).Success) && (!Regex.Match(zipCode, _caZipRegEx).Success))
+            {
+                validZipCode = false;
+            }
+            return validZipCode;
+        }
+    
+    static void CurrentTimeWeather()
         {
             using (WebClient web = new WebClient())
             {
