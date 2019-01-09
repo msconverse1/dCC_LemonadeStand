@@ -19,11 +19,7 @@ namespace MSC_LemonadeStande
 
      static public  void GetGeoLocation()
         {
-            string url = " https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDFU_AN2IpA1_u6gELnn1yAk01nutBHtcs";
-            //look at string writer
-         
-
-
+     
         }
 
 

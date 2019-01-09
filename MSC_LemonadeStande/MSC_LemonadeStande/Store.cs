@@ -74,7 +74,7 @@ namespace MSC_LemonadeStande
             }
             while (numCupsToMake < numCups)
                 {
-               
+                setOfCups = 0;
                 Console.Clear();
                     GwAPI.GetADaysWeather(currentDay);
                     //ShowCurrentWeather(weather);
@@ -110,8 +110,17 @@ namespace MSC_LemonadeStande
             }
             else
             {
-                inventory.Sugar1 -= (spoons*setOfCups);
-                return spoons;
+                if ((spoons * setOfCups)< inventory.Sugar1)
+
+                {
+                    inventory.Sugar1 -= (spoons * setOfCups);
+                    return spoons;
+                }
+                else
+                {
+                    spoons = AskForSugar(inventory, setOfCups);
+                    return spoons;
+                }
             }
         }
         public int AskForIce(Inventory inventory,int setOfCups)
@@ -130,8 +139,16 @@ namespace MSC_LemonadeStande
             }
             else
             {
-                inventory.Ice1 -= (cubes * setOfCups);
-                return cubes;
+                if ((cubes*setOfCups) <= inventory.Ice1)
+                {
+                    inventory.Ice1 -= (cubes * setOfCups);
+                    return cubes;
+                }
+                else
+                {
+                    cubes = AskForIce(inventory, setOfCups);
+                    return cubes;
+                }
             }
         }
         public int AskForLemons(Inventory inventory,int setOfCups)
@@ -150,8 +167,17 @@ namespace MSC_LemonadeStande
             }
             else
             {
-                inventory.Lemons1 -= (lemons*setOfCups);
-                return lemons;
+                if ((lemons * setOfCups) <=inventory.Lemons1)
+                {
+                    inventory.Lemons1 -= (lemons * setOfCups);
+                    return lemons;
+                }
+                else
+                {
+                    lemons = AskForLemons(inventory, setOfCups);
+                    return lemons;
+                }
+
             }
         }
         void ShowCurrentWeather(Weather weather)
@@ -187,10 +213,11 @@ namespace MSC_LemonadeStande
        public void CalculateDaysPay()
         {
             Console.WriteLine("End of the Day Report!");
-            Console.WriteLine("Is total Cash in Store: $" +(CurrentItems.CollectedMoney + CurrentItems.RemainingMoney));
-            Console.WriteLine("Is current profits based off Started with after Supplies where bought: $" +(CurrentItems.CollectedMoney- CurrentItems.StartingMoney));
             CurrentItems.RemainingMoney += CurrentItems.CollectedMoney;
             CurrentItems.StartingMoney = CurrentItems.RemainingMoney;
+            Console.WriteLine("Is total Cash in Store: $" +(CurrentItems.RemainingMoney));
+            Console.WriteLine("Is current profits based off Started with after Supplies where bought: $" +(CurrentItems.CollectedMoney- CurrentItems.StartingMoney));
+
         }
 
         public void CreateInventory()

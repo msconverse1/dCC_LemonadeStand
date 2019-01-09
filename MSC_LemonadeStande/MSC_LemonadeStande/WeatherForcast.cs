@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSC_LemonadeStande
 {
+#pragma warning disable IDE1006 // Naming Styles
     class WeatherForcast
     {
            city city { get; set; }
@@ -31,4 +32,5 @@ namespace MSC_LemonadeStande
         public List<weather> weather { get; set; } // weather list 
         city city { get; set; }
     }
+#pragma warning restore IDE1006 // Naming Styles
 }

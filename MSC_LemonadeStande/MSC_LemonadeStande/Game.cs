@@ -8,18 +8,19 @@ namespace MSC_LemonadeStande
 {
     class Game
     {
-        Weather newCal;
+        readonly Weather newCal;
         Store store;
         CustomerInteraction customer;
         int currentDay;
         List<Player> PotinalCustomers;
-        List<Store> TotalStores;
+        static List<Store> TotalStores;
         readonly Random random;
         public Game()
         {
             newCal = new Weather();
             store = new Store();
-            random = new Random(); 
+            random = new Random();
+            TotalStores = new List<Store>();
         }
         public void StartGame()
         {
@@ -103,7 +104,7 @@ namespace MSC_LemonadeStande
                 PotinalCustomers.Add(new Player(random));
             }
         }
-        void CreateMultiplayer()
+       public void CreateMultiplayer()
         {
             Console.WriteLine("Would you  like to play against another store?");
             string result = Console.ReadLine();
@@ -111,17 +112,40 @@ namespace MSC_LemonadeStande
             {
                 RunMultiplayer();
             }
+            else
+            {
+                StartGame();
+            }
 
         }
         void RunMultiplayer()
         {
-            Store store2 = new Store();
-            TotalStores.Add(store);
-            TotalStores.Add(store2);
+
+            for (int i = 0; i < 2; i++)
+            {
+                TotalStores.Add(new Store());
+            }
+
 
             foreach (var ministore in TotalStores)
             {
+                currentDay = 0;
+                
+                ministore.CurrentItems.RemainingMoney = 20;
                 StartGame();
+
+            }
+            if (TotalStores[0].CurrentItems.CollectedMoney > TotalStores[1].CurrentItems.CollectedMoney)
+            {
+                Console.WriteLine("Store:1 collected more money than Store:2");
+            }
+            else if(TotalStores[0].CurrentItems.CollectedMoney < TotalStores[1].CurrentItems.CollectedMoney)
+            {
+                Console.WriteLine("Store:2 collected more money than Store:1");
+            }
+            else
+            {
+                Console.WriteLine("Store:1 Tied Store:2");
             }
         }
       

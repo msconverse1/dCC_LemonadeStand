@@ -19,8 +19,8 @@ namespace MSC_LemonadeStande
       public static List<Day> weeksWeathers;
        static int zipcode;
         
-       static string _usZipRegEx = @"^\d{5}(?:[-\s]\d{4})?$";
-       static string _caZipRegEx = @"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$";
+       static readonly string _usZipRegEx = @"^\d{5}(?:[-\s]\d{4})?$";
+       static readonly string _caZipRegEx = @"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$";
 
         public static string Forecast { get { return forecast; } set { forecast = value; } }
         public static float Tempature { get { return tempature; } set { tempature = value; } }
@@ -43,7 +43,7 @@ namespace MSC_LemonadeStande
             //current time 
             //  CurrentTimeWeather();
             //5day ForeCast
-            getForcast(day,random);
+            GetForcast(day,random);
         }
 
        static public bool IsUSOrCanadianZipCode(string zipCode)
@@ -72,10 +72,9 @@ namespace MSC_LemonadeStande
                 Tempature = ConvertCToF(output.main.temp);
             }
         }
-      static void getForcast(int day,Random random)
+      static void GetForcast(int day,Random random)
         {
-            string url = $"http://api.openweathermap.org/data/2.5/forecast?q={location}" +
-                             $"&mode=json&units=metric&APPID={APPID}";
+       
             string urlforzipcode = $"http://api.openweathermap.org/data/2.5/forecast?zip={zipcode}" +
                             $"&mode=json&units=metric&APPID={APPID}";
            
@@ -113,9 +112,12 @@ namespace MSC_LemonadeStande
             Console.WriteLine("Current Tempature: " + (float)weeksWeathers[dayUserWants].GetTemperature());
         }
 
+
         //Methods for Parsing the JSON 
         // RM(datatypes name must match the JSON datatype name)
-        public  class weather
+#pragma warning disable IDE1006 // Naming Styles
+        public class weather
+
         {
            public  string main { get; set; }
            public  string description { get; set; }
@@ -137,4 +139,5 @@ namespace MSC_LemonadeStande
             return (float)C ;
         }
     }
+#pragma warning restore IDE1006 // Naming Styles
 }
